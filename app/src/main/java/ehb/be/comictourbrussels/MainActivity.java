@@ -1,10 +1,7 @@
 package ehb.be.comictourbrussels;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-import static ehb.be.comictourbrussels.R.id.map_comic;
+import ehb.be.comictourbrussels.Activities.ComicList;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
@@ -92,8 +89,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            // Handle the camera action
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_list) {
+            Intent intent = new Intent(getApplicationContext(), ComicList.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_about) {
 
