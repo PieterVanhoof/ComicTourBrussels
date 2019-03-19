@@ -5,7 +5,7 @@ android {
         debug_config {
             keyAlias 'android_debug_key'
             keyPassword 'test123'
-            storeFile file('C:/Users/mobapp12/AndroidStudioProjects/ComicTourBrussels/bxlight_keystore.p12.jks')
+            storeFile file('../bxlight_keystore.p12.jks')
             storePassword 'test123'
         }
     }
