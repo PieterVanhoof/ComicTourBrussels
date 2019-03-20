@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(intent);
 
         } else if (id == R.id.nav_list) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.map_comic, ListFragment.newInstance()).commit();
 
 
 
