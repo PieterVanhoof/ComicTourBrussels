@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -44,6 +45,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.map_comic, supportMapFragment)
+                .commit();
+
+        //about
+         AboutFragment aboutFragment = new AboutFragment();
+         FragmentManager fragmentManager = getSupportFragmentManager();
+         fragmentManager.beginTransaction()
+                .replace(R.id.about_comic, aboutFragment)
                 .commit();
 
 
@@ -113,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         } else if (id == R.id.nav_about) {
+            //getSupportFragmentManager().beginTransaction().replace(R.id.about_comic, FragmentManager.)
+
 
         } else if (id == R.id.nav_settings) {
 
