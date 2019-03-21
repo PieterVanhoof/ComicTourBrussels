@@ -44,7 +44,7 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
 
-        rvFragment = getView().findViewById(R.id.rv_fragment_list);
+        rvFragment = view.findViewById(R.id.rv_fragment_list);
 
         adapter = new ListFragmentAdapter((ArrayList<Comic>) ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
         rvFragment.setAdapter(adapter);
