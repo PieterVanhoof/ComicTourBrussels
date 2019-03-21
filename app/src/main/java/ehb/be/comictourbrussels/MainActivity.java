@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ComicHandler nComicHandler;
 
@@ -37,15 +37,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         nComicHandler = new ComicHandler(getApplicationContext());
 
-
-        //map
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        supportMapFragment.getMapAsync(this);
+        supportMapFragment.getMapAsync(MapFragment.newInstance());
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_container, supportMapFragment)
+                .replace(R.id.main_container, supportMapFragment)
                 .commit();
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,11 +101,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
+            supportMapFragment.getMapAsync(MapFragment.newInstance());
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, supportMapFragment)
+                    .commit();
 
         } else if (id == R.id.nav_list) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, ListFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, ListFragment.newInstance())
+                    .commit();
 
 
 
@@ -123,10 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
 
 
     private void downloadData(){
@@ -155,4 +154,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         backThread.start();
     }
+
+
 }
