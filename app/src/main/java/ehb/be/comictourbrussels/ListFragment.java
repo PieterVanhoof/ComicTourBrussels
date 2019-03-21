@@ -27,7 +27,6 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 public class ListFragment extends Fragment {
 
     private RecyclerView rvFragment;
-    private ComicHandler nComicHandler;
     private ListFragmentAdapter adapter;
 
     public ListFragment() {

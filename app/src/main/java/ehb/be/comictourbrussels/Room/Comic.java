@@ -17,6 +17,7 @@ public class Comic implements Serializable {
     private double lon;
     private String personage;
     private String author;
+    //private String imageId;
 
     @Ignore
     private Comic() {
@@ -34,6 +35,7 @@ public class Comic implements Serializable {
         this.personage = personage;
         this.author = author;
     }
+
 
     public long getId() {
         return id;

@@ -49,6 +49,8 @@ public class ComicHandler extends Handler {
 
 
                 String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
+                String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
+
 
                 Comic currentComic = new Comic(personage);
                 ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
@@ -58,7 +60,7 @@ public class ComicHandler extends Handler {
                 index++;
 
                 //Log.d("TEST personage", personage);
-                Log.d("TEST image" , filename);
+                Log.d("TEST image" , imgID);
 
             }
 
