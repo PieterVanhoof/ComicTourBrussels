@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         supportMapFragment.getMapAsync(this);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.map_comic, supportMapFragment)
+                .add(R.id.main_container, supportMapFragment)
                 .commit();
 
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(intent);
 
         } else if (id == R.id.nav_list) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.map_comic, ListFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, ListFragment.newInstance()).commit();
 
 
 
