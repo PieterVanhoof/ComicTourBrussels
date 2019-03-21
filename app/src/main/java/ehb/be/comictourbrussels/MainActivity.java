@@ -47,12 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .add(R.id.map_comic, supportMapFragment)
                 .commit();
 
-        //about
-         AboutFragment aboutFragment = new AboutFragment();
-         FragmentManager fragmentManager = getSupportFragmentManager();
-         fragmentManager.beginTransaction()
-                .replace(R.id.about_comic, aboutFragment)
-                .commit();
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -112,8 +107,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            //map
+            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
+            supportMapFragment.getMapAsync(this);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.map_comic, supportMapFragment)
+                    .commit();
 
         } else if (id == R.id.nav_list) {
             getSupportFragmentManager().beginTransaction().replace(R.id.map_comic, ListFragment.newInstance()).commit();
@@ -123,7 +123,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (id == R.id.nav_about) {
             //getSupportFragmentManager().beginTransaction().replace(R.id.about_comic, FragmentManager.)
 
-
+            //about
+            AboutFragment aboutFragment = new AboutFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.map_comic, aboutFragment)
+                    .commit();
         } else if (id == R.id.nav_settings) {
 
         }
