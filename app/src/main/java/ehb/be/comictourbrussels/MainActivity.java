@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         supportMapFragment.getMapAsync(this);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.map_comic, supportMapFragment)
+                .replace(R.id.main_container, supportMapFragment)
                 .commit();
 
 
@@ -104,16 +104,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+
+
+            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
+            supportMapFragment.getMapAsync(MapFragment.newInstance());
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, supportMapFragment)
+                    .commit();
 
         } else if (id == R.id.nav_list) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.map_comic, ListFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, ListFragment.newInstance())
+                    .commit();
 
 
 
         } else if (id == R.id.nav_about) {
 
+            //about
+            AboutFragment aboutFragment = new AboutFragment();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, aboutFragment)
+                    .commit();
         } else if (id == R.id.nav_settings) {
 
         }
