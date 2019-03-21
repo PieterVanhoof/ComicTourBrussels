@@ -33,22 +33,38 @@ public class ComicHandler extends Handler {
             int index = 0;
 
 
+            Log.d("TEST", nrOfRecords+"");
 
             while (index < nrOfRecords){
 
                 JSONObject currentRecord = records.getJSONObject(index);
                 JSONObject fields = currentRecord.getJSONObject("fields");
 
-                String personage = (fields.getString("personnage_s") != null)? fields.getString("personnage_s"): "Unknown";
+                JSONObject imageArray = fields.getJSONObject("photo");
 
-                Log.d("TEST personage", personage);
+                String personage = (fields.getString("personnage_s") != null)? fields.getString("personnage_s"): "Unknown";
+                String author = (fields.getString("auteur_s") != null)? fields.getString("auteur_s"): "Unknown";
+                String Coordinates = (fields.getString("coordonnees_geographiques") != null)? fields.getString("coordonnees_geographiques"): "Unknown";
+                String image = (fields.getString("photo") != null)? fields.getString("photo"): "Unknown";
+
+
+                String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
 
                 Comic currentComic = new Comic(personage);
                 ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
 
+
+
                 index++;
 
+                //Log.d("TEST personage", personage);
+                Log.d("TEST image" , filename);
+
             }
+
+
+
+
 
 
         } catch (JSONException e) {

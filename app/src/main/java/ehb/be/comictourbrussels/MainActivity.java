@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.map_comic, supportMapFragment)
                 .commit();
-
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -107,13 +104,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            //map
-            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-            supportMapFragment.getMapAsync(this);
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.map_comic, supportMapFragment)
-                    .commit();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_list) {
             getSupportFragmentManager().beginTransaction().replace(R.id.map_comic, ListFragment.newInstance()).commit();
@@ -121,14 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         } else if (id == R.id.nav_about) {
-            //getSupportFragmentManager().beginTransaction().replace(R.id.about_comic, FragmentManager.)
 
-            //about
-            AboutFragment aboutFragment = new AboutFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.map_comic, aboutFragment)
-                    .commit();
         } else if (id == R.id.nav_settings) {
 
         }
