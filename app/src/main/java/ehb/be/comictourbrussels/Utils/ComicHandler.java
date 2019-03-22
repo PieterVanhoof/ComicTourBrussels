@@ -65,23 +65,12 @@ public class ComicHandler extends Handler {
                 double lat = (double) coordinate.get(0);
                 double lng = (double) coordinate.get(1);
 
-
-
-                String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
                 String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
-
-                // Define where you want to save the file
-                String dirName = context.getFilesDir().getAbsolutePath() + "/myAppData/images";
-                final File storageDir = new File(dirName);
-                // Create directory
-                if (!storageDir.exists()) {
-                    storageDir.mkdirs();
-                }
                 // Your image address. ex: "http://http://stackoverflow.com/myImages.jpg"
                 String MY_IMAGE_URL = "https://opendata.brussel.be/explore/dataset/comic-book-route/files/"+imgID+"/300/";
                 final ImageView ivComic = new ImageView(context);
-                final String img_path = storageDir.getAbsolutePath() + "/" +imgID+ "ComicRoute.jpg";
+                final String img_path = context.getFilesDir() + "/" +imgID+ "ComicRoute.jpg";
                 Picasso.get().load(MY_IMAGE_URL).into(ivComic, new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {
@@ -94,7 +83,7 @@ public class ComicHandler extends Handler {
                                 try {
                                     file.createNewFile();
                                     FileOutputStream ostream = new FileOutputStream(file);
-                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
                                     ostream.close();
                                 } catch (IOException e) {
                                     e.printStackTrace();

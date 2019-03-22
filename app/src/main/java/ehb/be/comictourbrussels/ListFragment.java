@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import ehb.be.comictourbrussels.Room.Comic;
@@ -29,6 +30,7 @@ public class ListFragment extends Fragment {
 
     private RecyclerView rvFragment;
     private ListFragmentAdapter adapter;
+    private Context context;
 
     public ListFragment() {
         // Required empty public constructor
@@ -44,13 +46,14 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
 
+
         rvFragment = view.findViewById(R.id.rv_fragment_list);
 
         adapter = new ListFragmentAdapter((ArrayList<Comic>) ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
         rvFragment.setAdapter(adapter);
 
         RecyclerView.LayoutManager gridlayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+
 
 
         rvFragment.setLayoutManager(gridlayoutManager);

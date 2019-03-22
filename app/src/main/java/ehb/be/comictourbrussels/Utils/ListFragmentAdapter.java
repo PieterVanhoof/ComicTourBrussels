@@ -1,5 +1,6 @@
 package ehb.be.comictourbrussels.Utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
+import ehb.be.comictourbrussels.MapFragment;
 import ehb.be.comictourbrussels.R;
 import ehb.be.comictourbrussels.Room.Comic;
 
@@ -26,6 +30,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
 
 
+
         public FragmentListRowViewHolder(@NonNull View itemView) {
             super(itemView);
             personage = itemView.findViewById(R.id.tv_personage);
@@ -35,7 +40,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
     }
 
     private ArrayList<Comic> items;
-    private File imageFile;
 
     public ListFragmentAdapter(ArrayList<Comic> items){
         this.items = items;
@@ -50,11 +54,16 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
     @Override
     public void onBindViewHolder(@NonNull FragmentListRowViewHolder fragmentListRowViewHolder, int i) {
         Comic currentComic = items.get(i);
-        //link door file vervangen?
-        String imageid = currentComic.getImgID();
-        //Log.d("TEST link", imageid);
 
-        Picasso.get().load("https://opendata.brussel.be/explore/dataset/comic-book-route/files/"+imageid+"/300/").into(fragmentListRowViewHolder.ivImage);
+        String imageid = currentComic.getImgID();
+
+        String filename = imageid+"ComicRoute.jpg";
+
+        Context c = fragmentListRowViewHolder.itemView.getContext().getApplicationContext();
+
+        String path = c.getFilesDir()+"/" + filename;
+
+        Picasso.get().load("file://"+path).into(fragmentListRowViewHolder.ivImage);
         fragmentListRowViewHolder.personage.setText(currentComic.getPersonage());
 
 
