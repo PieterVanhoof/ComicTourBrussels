@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,14 +33,14 @@ public class ComicHandler extends Handler {
             int index = 0;
 
 
-           // Log.d("TEST", nrOfRecords+"");
+            Log.d("TEST", nrOfRecords+"");
 
             while (index < nrOfRecords){
 
                 JSONObject currentRecord = records.getJSONObject(index);
                 JSONObject fields = currentRecord.getJSONObject("fields");
 
-                JSONObject imageArray = fields.getJSONObject("photo");
+
 
                 String personage = (fields.getString("personnage_s") != null)? fields.getString("personnage_s"): "Unknown";
                 String author = (fields.getString("auteur_s") != null)? fields.getString("auteur_s"): "Unknown";
@@ -50,13 +48,18 @@ public class ComicHandler extends Handler {
                 String image = (fields.getString("photo") != null)? fields.getString("photo"): "Unknown";
 
 
+                JSONObject imageArray = fields.getJSONObject("photo");
+
                 int lengte = Coordinates.length();
 
                 String CutCoord = Coordinates.substring(1,lengte-1);
                 Log.d("Test", CutCoord);
 
                 String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
+                String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
+
+                Comic currentComic = new Comic(personage, imgID);
                 Comic currentComic = new Comic(personage, CutCoord);
                 ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
 
@@ -65,7 +68,7 @@ public class ComicHandler extends Handler {
                 index++;
 
                 //Log.d("TEST personage", personage);
-                //Log.d("TEST image" , Coordinates);
+                Log.d("TEST image" , filename);
 
             }
 

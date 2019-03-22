@@ -16,14 +16,15 @@ public class Comic implements Serializable {
     private String coordinate;
     private String personage;
     private String author;
+    private String imageId;
 
     @Ignore
     private Comic() {
     }
 
-
-    public Comic(String personage, String Cutcoord) {
+    public Comic(String personage, String imageId) {
         this.personage = personage;
+        this.imageId = imageId;
         this.coordinate = Cutcoord;
     }
 
@@ -42,6 +43,15 @@ public class Comic implements Serializable {
 
     public void setCoordinate(String coordinate) {
         this.coordinate = coordinate;
+    }
+
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public long getId() {
