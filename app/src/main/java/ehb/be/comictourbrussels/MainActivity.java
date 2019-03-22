@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private ComicHandler nComicHandler;
 
@@ -37,12 +37,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         nComicHandler = new ComicHandler(getApplicationContext());
 
+
+        //map
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        supportMapFragment.getMapAsync(MapFragment.newInstance());
+        supportMapFragment.getMapAsync(this);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, supportMapFragment)
                 .commit();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
+
+
             SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
             supportMapFragment.getMapAsync(MapFragment.newInstance());
 
@@ -117,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_about) {
 
+            //about
+            AboutFragment aboutFragment = new AboutFragment();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, aboutFragment)
+                    .commit();
         } else if (id == R.id.nav_settings) {
 
         }
@@ -126,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+    }
 
 
     private void downloadData(){
@@ -154,6 +169,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         backThread.start();
     }
-
-
 }
