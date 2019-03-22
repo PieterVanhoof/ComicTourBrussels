@@ -10,11 +10,10 @@ import java.io.Serializable;
 
 @Entity
 public class Comic implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     private long id;
-
-    private double lat;
-    private double lon;
+    private String coordinate;
     private String personage;
     private String author;
 
@@ -22,17 +21,27 @@ public class Comic implements Serializable {
     private Comic() {
     }
 
-    public Comic(String personage) {
+
+    public Comic(String personage, String Cutcoord) {
         this.personage = personage;
+        this.coordinate = Cutcoord;
     }
 
     @Ignore
-    public Comic(long id, double lat, double lon, String personage, String author) {
+    public Comic(long id, String coordinate, String personage, String author) {
         this.id = id;
-        this.lat = lat;
-        this.lon = lon;
+        this.coordinate = coordinate;
         this.personage = personage;
         this.author = author;
+    }
+
+
+    public String getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
     }
 
     public long getId() {
@@ -43,21 +52,7 @@ public class Comic implements Serializable {
         this.id = id;
     }
 
-    public double getLat() {
-        return lat;
-    }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
 
     public String getPersonage() {
         return personage;
@@ -75,14 +70,5 @@ public class Comic implements Serializable {
         this.author = author;
     }
 
-    @Override
-    public String toString() {
-        return "Comic{" +
-                "id=" + id +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                ", personage='" + personage + '\'' +
-                ", author='" + author + '\'' +
-                '}';
-    }
+
 }
