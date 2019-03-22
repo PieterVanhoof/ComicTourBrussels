@@ -4,6 +4,7 @@ package ehb.be.comictourbrussels;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,9 +49,11 @@ public class ListFragment extends Fragment {
         adapter = new ListFragmentAdapter((ArrayList<Comic>) ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
         rvFragment.setAdapter(adapter);
 
+        RecyclerView.LayoutManager gridlayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
-        rvFragment.setLayoutManager(layoutManager);
+
+        rvFragment.setLayoutManager(gridlayoutManager);
 
         return view;
     }

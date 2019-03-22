@@ -51,10 +51,10 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
     public void onBindViewHolder(@NonNull FragmentListRowViewHolder fragmentListRowViewHolder, int i) {
         Comic currentComic = items.get(i);
         //link door file vervangen?
-        //String imageid = currentComic.getImageId();
+        String imageid = currentComic.getImageId();
         //Log.d("TEST link", imageid);
 
-        Picasso.get().load("https://opendata.brussel.be/explore/dataset/comic-book-route/files/05bf1251965b56241438edcf13aa9ebb/300/").into(fragmentListRowViewHolder.ivImage);
+        Picasso.get().load("https://opendata.brussel.be/explore/dataset/comic-book-route/files/"+imageid+"/300/").into(fragmentListRowViewHolder.ivImage);
         fragmentListRowViewHolder.personage.setText(currentComic.getPersonage());
 
 

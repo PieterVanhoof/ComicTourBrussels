@@ -40,7 +40,7 @@ public class ComicHandler extends Handler {
                 JSONObject currentRecord = records.getJSONObject(index);
                 JSONObject fields = currentRecord.getJSONObject("fields");
 
-                JSONObject imageArray = fields.getJSONObject("photo");
+
 
                 String personage = (fields.getString("personnage_s") != null)? fields.getString("personnage_s"): "Unknown";
                 String author = (fields.getString("auteur_s") != null)? fields.getString("auteur_s"): "Unknown";
@@ -48,11 +48,13 @@ public class ComicHandler extends Handler {
                 String image = (fields.getString("photo") != null)? fields.getString("photo"): "Unknown";
 
 
+                JSONObject imageArray = fields.getJSONObject("photo");
+
                 String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
                 String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
 
-                Comic currentComic = new Comic(personage);
+                Comic currentComic = new Comic(personage, imgID);
                 ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
 
 
@@ -60,7 +62,7 @@ public class ComicHandler extends Handler {
                 index++;
 
                 //Log.d("TEST personage", personage);
-                Log.d("TEST image" , imgID);
+                //Log.d("TEST image" , imgID);
 
             }
 
