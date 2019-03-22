@@ -24,8 +24,6 @@ public class Comic implements Serializable {
     }
 
 
-
-
     public Comic(double lat, double lon, String personage, String author, String ImgID) {
         this.lat = lat;
         this.lon = lon;
