@@ -13,8 +13,6 @@ public class AboutFragment extends Fragment {
 
     public AboutFragment() {
 
-     TextView tvAboutTitle, tvAboutAuthors, tvAboutJorn, tvAboutPieter, tvAboutCarine,
-             tvAboutPartners, tvAboutEhb, tvAboutVdab;
 
     }
 
@@ -26,7 +24,7 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false);
 
-        //tvAboutTitle = getView().findViewById()
+
 
     }
 
