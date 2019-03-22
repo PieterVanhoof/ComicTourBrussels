@@ -49,18 +49,21 @@ public class ComicHandler extends Handler {
 
 
                 JSONObject imageArray = fields.getJSONObject("photo");
+                JSONArray coordinate = fields.getJSONArray("coordonnees_geographiques");
 
-                int lengte = Coordinates.length();
+                double lat = (double) coordinate.get(0);
+                double lng = (double) coordinate.get(1);
+                Log.d("TEST LAT", lat+"");
+                Log.d("TEST lng", lng+"");
 
-                String CutCoord = Coordinates.substring(1,lengte-1);
-                Log.d("Test", CutCoord);
+
 
                 String filename = (imageArray.getString("filename") != null)? imageArray.getString("filename"): "Unknown";
                 String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
 
-                Comic currentComic = new Comic(personage, imgID);
-                Comic currentComic = new Comic(personage, CutCoord);
+
+                Comic currentComic = new Comic(lat,lng,personage,author,imgID);
                 ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
 
 

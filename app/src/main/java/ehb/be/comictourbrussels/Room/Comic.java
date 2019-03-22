@@ -10,48 +10,36 @@ import java.io.Serializable;
 
 @Entity
 public class Comic implements Serializable {
-
     @PrimaryKey(autoGenerate = true)
     private long id;
-    private String coordinate;
+
+    private double lat;
+    private double lon;
     private String personage;
     private String author;
-    private String imageId;
+    private String ImgID;
 
     @Ignore
     private Comic() {
     }
 
-    public Comic(String personage, String imageId) {
-        this.personage = personage;
-        this.imageId = imageId;
-        this.coordinate = Cutcoord;
-    }
 
-    @Ignore
-    public Comic(long id, String coordinate, String personage, String author) {
-        this.id = id;
-        this.coordinate = coordinate;
+
+
+    public Comic(double lat, double lon, String personage, String author, String ImgID) {
+        this.lat = lat;
+        this.lon = lon;
         this.personage = personage;
         this.author = author;
+        this.ImgID = ImgID;
     }
 
-
-    public String getCoordinate() {
-        return coordinate;
+    public String getImgID() {
+        return ImgID;
     }
 
-    public void setCoordinate(String coordinate) {
-        this.coordinate = coordinate;
-    }
-
-
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImgID(String imgID) {
+        ImgID = imgID;
     }
 
     public long getId() {
@@ -62,7 +50,21 @@ public class Comic implements Serializable {
         this.id = id;
     }
 
+    public double getLat() {
+        return lat;
+    }
 
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
 
     public String getPersonage() {
         return personage;
@@ -80,5 +82,14 @@ public class Comic implements Serializable {
         this.author = author;
     }
 
-
+    @Override
+    public String toString() {
+        return "Comic{" +
+                "id=" + id +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", personage='" + personage + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
 }
