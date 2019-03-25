@@ -17,4 +17,5 @@
     <string name="txt_about_explanation" />
     <string name="txt_about_authors">Authors</string>
     <string name="txt_about_partners">Partners:</string>
+    <string name="txt_menu_search">Search</string>
 </resources>
