@@ -16,7 +16,7 @@ public interface ComicDao {
     void insertComic(Comic jComic);
 
     @Delete
-    void deleteNOte(Comic jComic);
+    void deleteComic(Comic jComic);
 
     @Query("SELECT * FROM Comic")
     List<Comic> selectAllComic();

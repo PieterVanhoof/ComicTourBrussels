@@ -12,6 +12,7 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -66,7 +67,8 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
         String path = c.getFilesDir() + "/" + filename;
 
-        Picasso.get().load("file://" + path).into(fragmentListRowViewHolder.ivImage);
+        Picasso.get().load("file://" + path)
+                .into(fragmentListRowViewHolder.ivImage);
         fragmentListRowViewHolder.personage.setText(currentComic.getPersonage());
 
 
@@ -77,9 +79,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
         return filteredItems.size();
     }
 
-    public void setItems(List<Comic> comics) {
-        filteredItems.addAll(comics);
-    }
 
     public Filter getFilter(){
         Filter filter = new Filter() {
