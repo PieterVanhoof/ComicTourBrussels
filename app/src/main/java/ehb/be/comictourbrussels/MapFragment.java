@@ -3,6 +3,7 @@ package ehb.be.comictourbrussels;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -20,7 +21,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import ehb.be.comictourbrussels.Room.Comic;
+import ehb.be.comictourbrussels.Room.ComicDatabase;
 
 
 /**
@@ -31,7 +38,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private final LatLng BRUSSEL = new LatLng(50.858712, 4.347446);
     private final int requestLocation = 2;
-    private static Context context;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -47,7 +53,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        context = this.getActivity();
+
 
         return view;
     }
@@ -58,6 +64,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         setupCamera();
         //startLocationUpdates();
+        addMarkers();
+
+    }
+    public void addMarkers(){
+        Activity context = getActivity();
+
+        for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+            Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
+            m.setTag(comic);
+        }
+
 
     }
 
@@ -71,7 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //TODO: context zoeken
-            if (ActivityCompat.checkSelfPermission(context.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
                 requestPermissions(permissions, requestLocation);

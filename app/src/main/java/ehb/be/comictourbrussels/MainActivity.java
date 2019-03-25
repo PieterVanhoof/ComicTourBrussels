@@ -1,5 +1,6 @@
 package ehb.be.comictourbrussels;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -17,9 +18,13 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 
+import ehb.be.comictourbrussels.Room.Comic;
+import ehb.be.comictourbrussels.Room.ComicDao;
+import ehb.be.comictourbrussels.Room.ComicDatabase;
 import ehb.be.comictourbrussels.Utils.ComicHandler;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +33,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private ComicHandler nComicHandler;
+    private GoogleMap mMap;
 
 
     @Override
@@ -168,4 +174,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         backThread.start();
     }
+
 }

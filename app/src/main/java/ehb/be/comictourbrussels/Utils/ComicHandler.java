@@ -65,6 +65,8 @@ public class ComicHandler extends Handler {
                 double lat = (double) coordinate.get(0);
                 double lng = (double) coordinate.get(1);
 
+                Log.d("TEST latlng", lat+"");
+
                 String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
                 // Your image address. ex: "http://http://stackoverflow.com/myImages.jpg"
