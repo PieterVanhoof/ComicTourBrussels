@@ -84,7 +84,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void addMarkers(){
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
-            Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
+            Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getPersonage()).snippet(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
             m.setTag(comic);
         }
 
