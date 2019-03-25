@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -38,6 +39,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private final LatLng BRUSSEL = new LatLng(50.858712, 4.347446);
     private final int requestLocation = 2;
+    private Activity context ;
+    private MapView mv;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -47,16 +50,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //map
-        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        supportMapFragment.getMapAsync(this);
-
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-
+        mv = view.findViewById(R.id.fragment_map);
+        mv.onCreate(savedInstanceState);
+        mv.getMapAsync(this);
 
         return view;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = getActivity();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mv.onResume();
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -68,7 +82,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
     public void addMarkers(){
-        Activity context = getActivity();
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
             Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
@@ -84,11 +97,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.animateCamera(update);
 
     }
-
+/*
     private void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //TODO: context zoeken
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
                 requestPermissions(permissions, requestLocation);
@@ -118,4 +131,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
     }
+    */
 }
