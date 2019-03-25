@@ -17,22 +17,27 @@ public class Comic implements Serializable {
     private double lon;
     private String personage;
     private String author;
+    private String ImgID;
 
     @Ignore
     private Comic() {
     }
 
-    public Comic(String personage) {
-        this.personage = personage;
-    }
 
-    @Ignore
-    public Comic(long id, double lat, double lon, String personage, String author) {
-        this.id = id;
+    public Comic(double lat, double lon, String personage, String author, String ImgID) {
         this.lat = lat;
         this.lon = lon;
         this.personage = personage;
         this.author = author;
+        this.ImgID = ImgID;
+    }
+
+    public String getImgID() {
+        return ImgID;
+    }
+
+    public void setImgID(String imgID) {
+        ImgID = imgID;
     }
 
     public long getId() {

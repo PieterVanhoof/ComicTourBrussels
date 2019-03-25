@@ -37,10 +37,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         nComicHandler = new ComicHandler(getApplicationContext());
 
-
         //map
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        supportMapFragment.getMapAsync(this);
+        supportMapFragment.getMapAsync(MapFragment.newInstance());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, supportMapFragment)
