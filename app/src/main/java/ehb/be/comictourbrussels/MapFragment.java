@@ -77,7 +77,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
 
         setupCamera();
-        //startLocationUpdates();
+        startLocationUpdates();
         addMarkers();
 
     }
@@ -97,7 +97,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.animateCamera(update);
 
     }
-/*
+
     private void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -131,5 +131,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
     }
-    */
 }
