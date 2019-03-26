@@ -57,7 +57,7 @@ public class ComicHandler extends Handler {
                 String author = (fields.getString("auteur_s") != null)? fields.getString("auteur_s"): "Unknown";
                 String Coordinates = (fields.getString("coordonnees_geographiques") != null)? fields.getString("coordonnees_geographiques"): "Unknown";
                 String image = (fields.getString("photo") != null)? fields.getString("photo"): "Unknown";
-
+                //String year = (fields.getString("year") != null)? fields.getString("year"): "Unknown";
 
                 JSONObject imageArray = fields.getJSONObject("photo");
                 JSONArray coordinate = fields.getJSONArray("coordonnees_geographiques");

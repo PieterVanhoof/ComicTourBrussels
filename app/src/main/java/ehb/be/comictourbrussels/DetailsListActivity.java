@@ -23,7 +23,7 @@ public class DetailsListActivity extends AppCompatActivity {
 
         textViewPersonage.setText(detailComic.getPersonage());
         textViewAuthor.setText( detailComic.getAuthor() );
-        //textViewDescription.setText(detailComic.get);
+        //textViewDescription.setText(detailComic);
 
 
     }

@@ -5,6 +5,7 @@
     android:id="@+id/about_comic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/nero"
     tools:context=".AboutFragment">
 
     <TextView
@@ -17,7 +18,7 @@
         android:layout_marginEnd="196dp"
         android:layout_marginRight="196dp"
         android:text="@string/txt_about_title"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
