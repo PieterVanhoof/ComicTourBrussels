@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
+import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 
 
 /**
@@ -83,17 +85,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
     public void addMarkers(){
 
+
+
+
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+            String filename = comic.getImgID() + "ComicRoute.jpg";
+            String path = context.getFilesDir() + "/" + filename;
+
+            InfoWindowAdapter markerInfoWindow = new InfoWindowAdapter(context);
+
+
+            mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
+
+
             Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getPersonage()).snippet(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
-            m.setTag(comic);
-        }
+            m.setTag(path);
+            }
 
 
     }
 
     private void setupCamera() {
 
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(BRUSSEL, 12);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(BRUSSEL, 14);
         mGoogleMap.animateCamera(update);
 
     }

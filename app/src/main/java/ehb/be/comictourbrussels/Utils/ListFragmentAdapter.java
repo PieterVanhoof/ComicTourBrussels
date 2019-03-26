@@ -69,6 +69,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
         Picasso.get().load("file://" + path)
                 .into(fragmentListRowViewHolder.ivImage);
+
         fragmentListRowViewHolder.personage.setText(currentComic.getPersonage());
 
 
