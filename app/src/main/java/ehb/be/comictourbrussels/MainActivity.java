@@ -1,6 +1,5 @@
 package ehb.be.comictourbrussels;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
@@ -8,15 +7,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.IOException;
 
@@ -25,7 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     private ComicHandler nComicHandler;
 
@@ -37,25 +29,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         nComicHandler = new ComicHandler(getApplicationContext());
 
-        //map
-        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-        supportMapFragment.getMapAsync(MapFragment.newInstance());
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, supportMapFragment)
-                .commit();
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -76,27 +60,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -107,11 +70,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.nav_map) {
 
 
-            SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
-            supportMapFragment.getMapAsync(MapFragment.newInstance());
-
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_container, supportMapFragment)
+                    .replace(R.id.main_container, MapFragment.newInstance())
                     .commit();
 
         } else if (id == R.id.nav_list) {
@@ -136,11 +96,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
     }
 
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import java.io.IOException;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
+import okhttp3.internal.cache.CacheStrategy;
 
 public class ComicHandler extends Handler {
 
@@ -46,67 +48,69 @@ public class ComicHandler extends Handler {
 
             Log.d("TEST", nrOfRecords+"");
 
-            while (index < nrOfRecords){
-
-                JSONObject currentRecord = records.getJSONObject(index);
-                JSONObject fields = currentRecord.getJSONObject("fields");
+            if(ComicDatabase.getInstance(context).getComicDAO().selectAllComic().isEmpty()) {
 
 
+                while (index < nrOfRecords) {
 
-                String personage = (fields.getString("personnage_s") != null)? fields.getString("personnage_s"): "Unknown";
-                String author = (fields.getString("auteur_s") != null)? fields.getString("auteur_s"): "Unknown";
-                String Coordinates = (fields.getString("coordonnees_geographiques") != null)? fields.getString("coordonnees_geographiques"): "Unknown";
-                String image = (fields.getString("photo") != null)? fields.getString("photo"): "Unknown";
-                //String year = (fields.getString("year") != null)? fields.getString("year"): "Unknown";
+                    JSONObject currentRecord = records.getJSONObject(index);
+                    JSONObject fields = currentRecord.getJSONObject("fields");
 
-                JSONObject imageArray = fields.getJSONObject("photo");
-                JSONArray coordinate = fields.getJSONArray("coordonnees_geographiques");
 
-                double lat = (double) coordinate.get(0);
-                double lng = (double) coordinate.get(1);
+                    String personage = (fields.getString("personnage_s") != null) ? fields.getString("personnage_s") : "Unknown";
+                    String author = (fields.getString("auteur_s") != null) ? fields.getString("auteur_s") : "Unknown";
 
-                String imgID = (imageArray.getString("id") != null)? imageArray.getString("id"): "Unknown";
 
-                // Your image address. ex: "http://http://stackoverflow.com/myImages.jpg"
-                String MY_IMAGE_URL = "https://opendata.brussel.be/explore/dataset/comic-book-route/files/"+imgID+"/300/";
-                final ImageView ivComic = new ImageView(context);
-                final String img_path = context.getFilesDir() + "/" +imgID+ "ComicRoute.jpg";
-                Picasso.get().load(MY_IMAGE_URL).into(ivComic, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Save bitmap to local
-                                Bitmap bitmap = ((BitmapDrawable)ivComic.getDrawable()).getBitmap();
-                                File file = new File(img_path);
-                                try {
-                                    file.createNewFile();
-                                    FileOutputStream ostream = new FileOutputStream(file);
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                                    ostream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                    JSONObject imageArray = fields.getJSONObject("photo");
+                    JSONArray coordinate = fields.getJSONArray("coordonnees_geographiques");
+
+                    double lat = (double) coordinate.get(0);
+                    double lng = (double) coordinate.get(1);
+
+
+                    String imgID = (imageArray.getString("id") != null) ? imageArray.getString("id") : "Unknown";
+
+                    // Your image address. ex: "http://http://stackoverflow.com/myImages.jpg"
+                    String MY_IMAGE_URL = "https://opendata.brussel.be/explore/dataset/comic-book-route/files/" + imgID + "/300/";
+                    final ImageView ivComic = new ImageView(context);
+                    final String img_path = context.getFilesDir() + "/" + imgID + "ComicRoute.jpg";
+                    Picasso.get().load(MY_IMAGE_URL)
+                            .into(ivComic, new com.squareup.picasso.Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // Save bitmap to local
+                                            Bitmap bitmap = ((BitmapDrawable) ivComic.getDrawable()).getBitmap();
+                                            File file = new File(img_path);
+                                            try {
+                                                file.createNewFile();
+                                                FileOutputStream ostream = new FileOutputStream(file);
+                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+                                                ostream.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }, 100);
                                 }
-                            }
-                        },100);
-                    }
-                    @Override
-                    public void onError(Exception e) {
 
-                    }
-                });
+                                @Override
+                                public void onError(Exception e) {
 
-                Comic currentComic = new Comic(lat,lng,personage,author,imgID);
-                ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
+                                }
+                            });
 
-                index++;
+                    Comic currentComic = new Comic(lat, lng, personage, author, imgID);
 
-                //Log.d("TEST personage", personage);
+
+                    ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
+
+                    index++;
+                }
 
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
 
