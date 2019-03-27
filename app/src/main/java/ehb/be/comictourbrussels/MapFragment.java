@@ -16,14 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -33,7 +32,6 @@ import java.util.List;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
-import ehb.be.comictourbrussels.Room.VisitedDatabase;
 import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 
 
@@ -47,7 +45,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final int requestLocation = 2;
     private Activity context;
     private MapView mv;
-    private List<Comic> visitedList;
+    private Float hue = 0f;
+
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -58,6 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
 
         mv = view.findViewById(R.id.fragment_map);
         mv.onCreate(savedInstanceState);
@@ -101,7 +101,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
-            Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getPersonage()).snippet(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
+            Log.d("TEST VISITED", comic.getVisited()+"");
+
+            if (comic.getVisited()){
+
+                hue = BitmapDescriptorFactory.HUE_BLUE;
+            }else {
+                hue = BitmapDescriptorFactory.HUE_RED;
+            }
+
+            Marker m = mGoogleMap.addMarker(new MarkerOptions()
+                    .title(comic.getPersonage()).snippet(comic.getAuthor())
+                    .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
 
             m.setTag(path);
 
@@ -152,19 +163,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-         Comic clickedComic;
-         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
-             Log.d("Titlem", marker.getTitle());
-             Log.d("Titlec", c.getPersonage());
-             if(c.getPersonage() == marker.getTitle()){
 
-                 clickedComic = c;
-                 Log.d("TEST", clickedComic+"");
-                 VisitedDatabase.getInstance(context).getComicDAO().insertComic(clickedComic);
+         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+
+             if (c.getPersonage().contains(marker.getTitle())) {
+                 if(c.getVisited()){
+                     c.setVisited(false);
+                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                 }else{
+                     c.setVisited(true);
+                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                 }
+                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
              }
          }
-         Log.d("TEST", VisitedDatabase.getInstance(context).getComicDAO().selectAllComic()+"");
 
             }
 }

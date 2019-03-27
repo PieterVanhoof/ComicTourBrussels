@@ -35,7 +35,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/btn_visited"
+        android:id="@+id/tv_visited"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txt_tv_visited" />

@@ -45,6 +45,7 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tvAuthor = v.findViewById(R.id.tv_infowindow_author);
         ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
 
+
         String path = marker.getTag().toString();
         Log.d("TEST", path);
 
@@ -54,6 +55,7 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         tvPersonage.setText("Personage: "+ marker.getTitle());
         tvAuthor.setText("Author: " + marker.getSnippet());
+
 
         return v;
     }

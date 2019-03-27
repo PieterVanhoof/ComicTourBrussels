@@ -100,7 +100,7 @@ public class ComicHandler extends Handler {
                                 }
                             });
 
-                    Comic currentComic = new Comic(lat, lng, personage, author, imgID);
+                    Comic currentComic = new Comic(lat, lng, personage, author, imgID, false);
 
 
                     ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
