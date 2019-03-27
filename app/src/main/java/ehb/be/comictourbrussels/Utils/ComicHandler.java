@@ -76,7 +76,7 @@ public class ComicHandler extends Handler {
                             .into(ivComic, new com.squareup.picasso.Callback() {
                                 @Override
                                 public void onSuccess() {
-                                    new Handler().postDelayed(new Runnable() {
+                                    new Handler().post(new Runnable() {
                                         @Override
                                         public void run() {
                                             // Save bitmap to local
@@ -91,7 +91,7 @@ public class ComicHandler extends Handler {
                                                 e.printStackTrace();
                                             }
                                         }
-                                    }, 100);
+                                    } );
                                 }
 
                                 @Override

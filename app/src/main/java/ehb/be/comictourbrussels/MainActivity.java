@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, aboutFragment)
                     .commit();
-        } else if (id == R.id.nav_settings) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
