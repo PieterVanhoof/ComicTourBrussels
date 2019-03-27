@@ -49,6 +49,8 @@ public class WCHandler extends Handler {
 
                     WC currentWc = new WC(lat, lon, "adres", "adres");
                     ComicDatabase.getInstance(context).getComicDAO().insertWc(currentWc);
+
+                    index++;
                 }
             }
         }catch (JSONException e) {
