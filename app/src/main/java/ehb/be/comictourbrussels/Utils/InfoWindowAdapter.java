@@ -37,27 +37,33 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(final Marker marker) {
+        //TODO hack code vervangen
+        if (marker.getTitle().contains("WC")) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.info_window, null);
+        } else {
 
-        tvPersonage = v.findViewById(R.id.tv_infowindow_personage);
-        tvAuthor = v.findViewById(R.id.tv_infowindow_author);
-        ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflater.inflate(R.layout.info_window, null);
 
-
-        String path = marker.getTag().toString();
-        Log.d("TEST", path);
-
-        Uri uri = Uri.parse("file://"+path);
-        ivInfoWindow.setImageURI(uri);
+            tvPersonage = v.findViewById(R.id.tv_infowindow_personage);
+            tvAuthor = v.findViewById(R.id.tv_infowindow_author);
+            ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
 
 
-        tvPersonage.setText("Personage: "+ marker.getTitle());
-        tvAuthor.setText("Author: " + marker.getSnippet());
+            String path = marker.getTag().toString();
+            Log.d("TEST", path);
+
+            Uri uri = Uri.parse("file://" + path);
+            ivInfoWindow.setImageURI(uri);
 
 
-        return v;
-    }
+            tvPersonage.setText("Personage: " + marker.getTitle());
+            tvAuthor.setText("Author: " + marker.getSnippet());
+            return  v;
+        }
+
+            return null;
+        }
+
 
 }
