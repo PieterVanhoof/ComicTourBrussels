@@ -4,6 +4,7 @@ package ehb.be.comictourbrussels;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,7 +45,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final int requestLocation = 2;
     private Activity context;
     private MapView mv;
-    private List<Comic> visitedList;
+    private Float hue = 0f;
+
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -97,7 +100,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
-            Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getPersonage()).snippet(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
+            Log.d("TEST VISITED", comic.getVisited()+"");
+
+            if (comic.getVisited()){
+
+                hue = BitmapDescriptorFactory.HUE_BLUE;
+            }else {
+                hue = BitmapDescriptorFactory.HUE_RED;
+            }
+
+            Marker m = mGoogleMap.addMarker(new MarkerOptions()
+                    .title(comic.getPersonage()).snippet(comic.getAuthor())
+                    .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
 
             m.setTag(path);
 
@@ -148,6 +162,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+
+         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+
+             if (c.getPersonage().contains(marker.getTitle())) {
+                 if(c.getVisited()){
+                     c.setVisited(false);
+                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                 }else{
+                     c.setVisited(true);
+                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                 }
+                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
+             }
+         }
 
             }
 }
