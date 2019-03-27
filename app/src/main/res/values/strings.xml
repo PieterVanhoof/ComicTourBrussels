@@ -27,4 +27,5 @@
     <string name="jorn_rymenans">Jorn Rymenans</string>
     <string name="txt_button_visited">Visited</string>
     <string name="txt_tv_visited">Click if visited</string>
+    <string name="nav_title">Comic Tour</string>
 </resources>

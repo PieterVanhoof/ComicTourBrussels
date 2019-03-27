@@ -7,9 +7,11 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Comic implements Serializable {
+    //TODO primary key naar die van de dataset omzetten
     @PrimaryKey(autoGenerate = true)
     private long id;
 
@@ -18,19 +20,30 @@ public class Comic implements Serializable {
     private String personage;
     private String author;
     private String ImgID;
+    private Boolean visited;
 
     @Ignore
     private Comic() {
     }
 
 
-    public Comic(double lat, double lon, String personage, String author, String ImgID) {
+    public Comic(double lat, double lon, String personage, String author, String ImgID, Boolean visited) {
         this.lat = lat;
         this.lon = lon;
         this.personage = personage;
         this.author = author;
         this.ImgID = ImgID;
+        this.visited = visited;
 
+    }
+
+
+    public Boolean getVisited() {
+        return visited;
+    }
+
+    public void setVisited(Boolean visited) {
+        this.visited = visited;
     }
 
     public String getImgID() {
@@ -82,8 +95,6 @@ public class Comic implements Serializable {
     }
 
 
-
-
     @Override
     public String toString() {
         return "Comic{" +
@@ -92,6 +103,8 @@ public class Comic implements Serializable {
                 ", lon=" + lon +
                 ", personage='" + personage + '\'' +
                 ", author='" + author + '\'' +
+                ", ImgID='" + ImgID + '\'' +
+                ", visited=" + visited +
                 '}';
     }
 }

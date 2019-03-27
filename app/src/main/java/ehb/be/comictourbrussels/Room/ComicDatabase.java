@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(version = 1,entities = {Comic.class},exportSchema = false)
+@Database(version = 1,entities = {Comic.class,WC.class},exportSchema = false)
 public abstract class ComicDatabase extends RoomDatabase {
 
     private static ComicDatabase instance;
@@ -16,6 +16,7 @@ public abstract class ComicDatabase extends RoomDatabase {
         }
         return instance;
     }
+
 
     private static ComicDatabase createDatabase (Context context){
         return Room.databaseBuilder(context, ComicDatabase.class,"comic.db").allowMainThreadQueries().build();
