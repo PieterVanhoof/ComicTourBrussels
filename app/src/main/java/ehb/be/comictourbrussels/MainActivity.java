@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container, MapFragment.newInstance()).commit();
+
        downloadData();
 
     }
