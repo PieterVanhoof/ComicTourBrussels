@@ -38,7 +38,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
 
         public FragmentListRowViewHolder(@NonNull final View itemView) {
-        public FragmentListRowViewHolder(@NonNull View itemView) {
             super(itemView);
             personage = itemView.findViewById(R.id.tv_personage);
             ivImage = itemView.findViewById(R.id.iv_img);
@@ -145,5 +144,5 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 }
 
 
-}
+
 
