@@ -30,6 +30,7 @@ public class Comic implements Serializable {
         this.personage = personage;
         this.author = author;
         this.ImgID = ImgID;
+
     }
 
     public String getImgID() {
@@ -79,6 +80,9 @@ public class Comic implements Serializable {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
+
 
     @Override
     public String toString() {

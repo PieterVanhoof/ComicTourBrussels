@@ -18,6 +18,13 @@
     <string name="txt_about_authors">Authors</string>
     <string name="txt_about_partners">Partners:</string>
     <string name="txt_menu_search">Search</string>
+    <string name="text_title_details">Details</string>
+    <string name="txt_details_personage">Personage:</string>
+    <string name="txt_details_author">Author:</string>
+    <string name="text_details_description">Description</string>
+    <string name="text_details_describe">Description:</string>
+    <string name="txt_lbl_details">Details</string>
+    <string name="jorn_rymenans">Jorn Rymenans</string>
     <string name="txt_button_visited">Visited</string>
     <string name="txt_tv_visited">Click if visited</string>
 </resources>

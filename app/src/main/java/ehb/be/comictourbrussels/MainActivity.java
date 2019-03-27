@@ -40,12 +40,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
-        //map
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_container, MapFragment.newInstance())
-                .commit();
+        navigationView.setNavigationItemSelectedListener(this);
 
        downloadData();
 
