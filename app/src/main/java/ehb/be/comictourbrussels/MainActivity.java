@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import java.io.IOException;
 
 import ehb.be.comictourbrussels.Utils.ComicHandler;
+import ehb.be.comictourbrussels.Utils.WCHandler;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -20,6 +21,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     private ComicHandler nComicHandler;
+    private WCHandler nWCHandler;
 
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nWCHandler = new WCHandler(getApplicationContext());
         nComicHandler = new ComicHandler(getApplicationContext());
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
     private void downloadData(){
+        //comic thread
         Thread backThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -120,8 +124,30 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+            }
+        });
+        Thread wcBackThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient client = new OkHttpClient();
+
+                    Request request = new Request.Builder().url("https://opendata.brussel.be/api/records/1.0/search/?dataset=bruxelles_urinoirs_publics&rows=100")
+                            .get().build();
+                    Response response = client.newCall(request).execute();
+
+                    String responseBodyText = response.body() != null ? response.body().string() :null;
+
+                    Message msg = new Message();
+                    msg.obj = responseBodyText;
+                    nWCHandler.sendMessage(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         backThread.start();
+        wcBackThread.start();
     }
 }

@@ -4,43 +4,31 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
 
 @Entity
-public class Comic implements Serializable {
+public class WC implements Serializable {
     //TODO primary key naar die van de dataset omzetten
     @PrimaryKey(autoGenerate = true)
     private long id;
 
     private double lat;
     private double lon;
-    private String personage;
-    private String author;
-    private String ImgID;
+    private String AdressN;
+    private String AdressF;
 
-    @Ignore
-    private Comic() {
+
+    public WC() {
     }
 
+    public WC( double lat, double lon, String adressN, String adressF) {
 
-    public Comic(double lat, double lon, String personage, String author, String ImgID) {
         this.lat = lat;
         this.lon = lon;
-        this.personage = personage;
-        this.author = author;
-        this.ImgID = ImgID;
-
+        AdressN = adressN;
+        AdressF = adressF;
     }
 
-    public String getImgID() {
-        return ImgID;
-    }
-
-    public void setImgID(String imgID) {
-        ImgID = imgID;
-    }
 
     public long getId() {
         return id;
@@ -66,33 +54,30 @@ public class Comic implements Serializable {
         this.lon = lon;
     }
 
-    public String getPersonage() {
-        return personage;
+    public String getAdressN() {
+        return AdressN;
     }
 
-    public void setPersonage(String personage) {
-        this.personage = personage;
+    public void setAdressN(String adressN) {
+        AdressN = adressN;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAdressF() {
+        return AdressF;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAdressF(String adressF) {
+        AdressF = adressF;
     }
-
-
-
 
     @Override
     public String toString() {
-        return "Comic{" +
+        return "WC{" +
                 "id=" + id +
                 ", lat=" + lat +
                 ", lon=" + lon +
-                ", personage='" + personage + '\'' +
-                ", author='" + author + '\'' +
+                ", AdressN='" + AdressN + '\'' +
+                ", AdressF='" + AdressF + '\'' +
                 '}';
     }
 }

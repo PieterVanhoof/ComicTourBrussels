@@ -12,16 +12,23 @@ import ehb.be.comictourbrussels.Room.Comic;
 @Dao
 public interface ComicDao {
 
+    //Comic
     @Insert
     void insertComic(Comic jComic);
 
-    @Delete
-    void deleteNOte(Comic jComic);
 
     @Query("SELECT * FROM Comic")
     List<Comic> selectAllComic();
 
     @Query("SELECT * FROM Comic WHERE id = :id")
     Comic selectComicByID(long id);
+
+    //Wc's
+    @Insert
+    void insertWc(WC jWC);
+
+    @Query("SELECT * FROM WC")
+    List<WC> selectAllWC();
+
 
 }

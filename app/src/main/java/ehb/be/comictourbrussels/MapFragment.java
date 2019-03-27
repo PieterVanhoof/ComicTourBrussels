@@ -4,7 +4,6 @@ package ehb.be.comictourbrussels;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,8 +21,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -33,7 +30,6 @@ import java.util.List;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
-import ehb.be.comictourbrussels.Room.VisitedDatabase;
 import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 
 
@@ -152,19 +148,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-         Comic clickedComic;
-         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
-             Log.d("Titlem", marker.getTitle());
-             Log.d("Titlec", c.getPersonage());
-             if(c.getPersonage() == marker.getTitle()){
-
-                 clickedComic = c;
-                 Log.d("TEST", clickedComic+"");
-                 VisitedDatabase.getInstance(context).getComicDAO().insertComic(clickedComic);
-             }
-         }
-         Log.d("TEST", VisitedDatabase.getInstance(context).getComicDAO().selectAllComic()+"");
 
             }
 }
