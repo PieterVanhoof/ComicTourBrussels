@@ -46,8 +46,6 @@ public class ComicHandler extends Handler {
             int index = 0;
 
 
-            Log.d("TEST", nrOfRecords+"");
-
             if(ComicDatabase.getInstance(context).getComicDAO().selectAllComic().isEmpty()) {
 
 

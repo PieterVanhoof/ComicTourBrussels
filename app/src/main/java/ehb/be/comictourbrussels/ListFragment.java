@@ -54,7 +54,7 @@ public class ListFragment extends Fragment {
 
         rvFragment = view.findViewById(R.id.rv_fragment_list);
 
-        adapter = new ListFragmentAdapter((ArrayList<Comic>) ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
+        adapter = new ListFragmentAdapter( ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
         rvFragment.setAdapter(adapter);
 
         RecyclerView.LayoutManager gridlayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);

@@ -23,26 +23,31 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
+import ehb.be.comictourbrussels.Room.VisitedDatabase;
 import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mGoogleMap;
     private final LatLng BRUSSEL = new LatLng(50.858712, 4.347446);
     private final int requestLocation = 2;
-    private Activity context ;
+    private Activity context;
     private MapView mv;
+    private List<Comic> visitedList;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -65,6 +70,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+
     }
 
     @Override
@@ -83,26 +89,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         addMarkers();
 
     }
-    public void addMarkers(){
+
+    public void addMarkers() {
 
 
-
-
-        for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+        for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
             String filename = comic.getImgID() + "ComicRoute.jpg";
             String path = context.getFilesDir() + "/" + filename;
 
             InfoWindowAdapter markerInfoWindow = new InfoWindowAdapter(context);
 
-
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
-
             Marker m = mGoogleMap.addMarker(new MarkerOptions().title(comic.getPersonage()).snippet(comic.getAuthor()).icon(BitmapDescriptorFactory.defaultMarker()).position(new LatLng(comic.getLat(), comic.getLon())));
+
             m.setTag(path);
-            }
 
-
+            mGoogleMap.setOnInfoWindowClickListener(this);
+        }
     }
 
     private void setupCamera() {
@@ -145,4 +149,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
     }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+         Comic clickedComic;
+         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+             Log.d("Titlem", marker.getTitle());
+             Log.d("Titlec", c.getPersonage());
+             if(c.getPersonage() == marker.getTitle()){
+
+                 clickedComic = c;
+                 Log.d("TEST", clickedComic+"");
+                 VisitedDatabase.getInstance(context).getComicDAO().insertComic(clickedComic);
+             }
+         }
+         Log.d("TEST", VisitedDatabase.getInstance(context).getComicDAO().selectAllComic()+"");
+
+            }
 }

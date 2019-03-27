@@ -18,4 +18,6 @@
     <string name="txt_about_authors">Authors</string>
     <string name="txt_about_partners">Partners:</string>
     <string name="txt_menu_search">Search</string>
+    <string name="txt_button_visited">Visited</string>
+    <string name="txt_tv_visited">Click if visited</string>
 </resources>
