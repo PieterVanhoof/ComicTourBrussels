@@ -20,10 +20,6 @@ import ehb.be.comictourbrussels.R;
 public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
-    private TextView tvPersonage, tvAuthor;
-    private ImageView ivInfoWindow;
-
-
 
 
     public InfoWindowAdapter(Context context){
@@ -45,9 +41,9 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.info_window, null);
 
-            tvPersonage = v.findViewById(R.id.tv_infowindow_personage);
-            tvAuthor = v.findViewById(R.id.tv_infowindow_author);
-            ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
+        TextView tvPersonage = v.findViewById(R.id.tv_infowindow_personage);
+        TextView tvAuthor = v.findViewById(R.id.tv_infowindow_author);
+        ImageView ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
 
 
             String path = marker.getTag().toString();

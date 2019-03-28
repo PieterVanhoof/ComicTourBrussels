@@ -121,7 +121,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
                 return null;
             }
 
-    public void setItems(ArrayList<Comic> comics) {
+    public void setItems(List<Comic> comics) {
         items.addAll(comics);
     }
 

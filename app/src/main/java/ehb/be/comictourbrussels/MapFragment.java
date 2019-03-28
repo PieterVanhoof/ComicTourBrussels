@@ -4,8 +4,8 @@ package ehb.be.comictourbrussels;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
@@ -47,12 +47,59 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final int requestLocation = 2;
     private Activity context;
     private MapView mv;
-    private Float hue = 0f;
+    private ArrayList<Marker> wcMarkerList, visitedList, todoList;
+    private Button btnWc, btnVisited, btnToDo;
 
 
     public static MapFragment newInstance() {
         return new MapFragment();
     }
+
+    private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            for (Marker wc : wcMarkerList){
+                if(wc.isVisible()){
+                    wc.setVisible(false);
+                    btnWc.setTextColor(Color.rgb(200,0,0));
+                }else{
+                    wc.setVisible(true);
+                    btnWc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+            }
+        }
+    };
+
+    private View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (Marker todo : todoList){
+                if(todo.isVisible()){
+                    todo.setVisible(false);
+                    btnToDo.setTextColor(Color.rgb(200,0,0));
+                }else{
+                    todo.setVisible(true);
+                    btnToDo.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+            }
+        }
+    };
+
+    private View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (Marker visited : visitedList){
+                if(visited.isVisible()){
+                    visited.setVisible(false);
+                    btnVisited.setTextColor(Color.rgb(200,0,0));
+                }else{
+                    visited.setVisible(true);
+                    btnVisited.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,9 +107,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        visitedList = new ArrayList<>();
+        todoList = new ArrayList<>();
+        wcMarkerList = new ArrayList<>();
+
+
         mv = view.findViewById(R.id.fragment_map);
         mv.onCreate(savedInstanceState);
         mv.getMapAsync(this);
+
+        btnWc = view.findViewById(R.id.btn_toilet);
+        btnWc.setOnClickListener(wcButtonOnClickListener);
+        btnToDo = view.findViewById(R.id.btn_todo);
+        btnToDo.setOnClickListener(todoButtonOnClickListener);
+        btnVisited = view.findViewById(R.id.btn_visited);
+        btnVisited.setOnClickListener(visitedButtonOnClickListener);
 
         return view;
     }
@@ -92,7 +151,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     }
 
+
     public void addMarkers() {
+
 
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
@@ -103,20 +164,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
-            Log.d("TEST VISITED", comic.getVisited()+"");
+            Log.d("TEST VISITED", comic.getVisited() + "");
 
-            if (comic.getVisited()){
-
+            Float hue;
+            if (comic.getVisited()) {
                 hue = BitmapDescriptorFactory.HUE_BLUE;
-            }else {
+
+                Marker m = mGoogleMap.addMarker(new MarkerOptions()
+                        .title(comic.getPersonage()).snippet(comic.getAuthor())
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
+
+                m.setTag(path);
+
+                visitedList.add(m);
+            } else {
                 hue = BitmapDescriptorFactory.HUE_RED;
+
+                Marker m = mGoogleMap.addMarker(new MarkerOptions()
+                        .title(comic.getPersonage()).snippet(comic.getAuthor())
+                        .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
+
+                m.setTag(path);
+
+                todoList.add(m);
             }
 
-            Marker m = mGoogleMap.addMarker(new MarkerOptions()
-                    .title(comic.getPersonage()).snippet(comic.getAuthor())
-                    .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
 
-            m.setTag(path);
+
 
             mGoogleMap.setOnInfoWindowClickListener(this);
         }
@@ -128,8 +202,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
             mGoogleMap.addMarker(new MarkerOptions().icon(icon).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(),wc.getLon())));
+            Marker wcMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(60)).title("WC").snippet(wc.getAdressN())
+                    .position(new LatLng(wc.getLat(), wc.getLon())));
+            wcMarkerList.add(wcMarker);
 
-
+            //icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
         }
     }
 
@@ -177,19 +254,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-         for ( Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+        for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
 
-             if (c.getPersonage().contains(marker.getTitle())) {
-                 if(c.getVisited()){
-                     c.setVisited(false);
-                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                 }else{
-                     c.setVisited(true);
-                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                 }
-                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
-             }
-         }
+            if (c.getPersonage().contains(marker.getTitle())) {
+                if (c.getVisited()) {
+                    c.setVisited(false);
+                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    todoList.add(marker);
+                    visitedList.remove(marker);
+                    if(todoList.get(0).isVisible()){
+                        marker.setVisible(true);
+                    }else{
+                        marker.setVisible(false);
+                    }
+                } else {
+                    c.setVisited(true);
+                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    todoList.remove(marker);
+                    visitedList.add(marker);
+                    if(visitedList.get(0).isVisible()){
+                        marker.setVisible(true);
+                    }else{
+                        marker.setVisible(false);
+                    }
+                }
+                ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
+            }
+        }
 
     }
 }
