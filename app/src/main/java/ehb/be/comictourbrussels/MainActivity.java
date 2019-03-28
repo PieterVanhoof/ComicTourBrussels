@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import java.io.IOException;
 
+import ehb.be.comictourbrussels.Room.Comic;
+import ehb.be.comictourbrussels.Room.ComicDatabase;
 import ehb.be.comictourbrussels.Utils.ComicHandler;
 import ehb.be.comictourbrussels.Utils.WCHandler;
 import okhttp3.OkHttpClient;
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         if (id == R.id.nav_map) {
 
-
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, MapFragment.newInstance())
                     .commit();
@@ -80,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, ListFragment.newInstance())
                     .commit();
-
-
 
         } else if (id == R.id.nav_about) {
 
