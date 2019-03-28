@@ -202,7 +202,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
             mGoogleMap.addMarker(new MarkerOptions().icon(icon).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(),wc.getLon())));
-            Marker wcMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(60)).title("WC").snippet(wc.getAdressN())
+            Marker wcMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc)).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(), wc.getLon())));
             wcMarkerList.add(wcMarker);
 
