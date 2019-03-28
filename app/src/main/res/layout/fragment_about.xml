@@ -50,7 +50,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/black"
-        android:text="@string/jorn_rymenans"
+        android:text="@string/txt_about_jorn"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

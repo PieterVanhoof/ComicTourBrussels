@@ -53,8 +53,8 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             ivInfoWindow.setImageURI(uri);
 
 
-            tvPersonage.setText("Personage: " + marker.getTitle());
-            tvAuthor.setText("Author: " + marker.getSnippet());
+            tvPersonage.setText(context.getString(R.string.txt_infowindowadapter_personage) + marker.getTitle());
+            tvAuthor.setText(context.getString(R.string.txt_infowindowadapter_author) + marker.getSnippet());
             return  v;
         }
 
