@@ -4,8 +4,8 @@ package ehb.be.comictourbrussels;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +29,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
@@ -49,21 +47,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private Activity context;
     private MapView mv;
     private ArrayList<Marker> wcMarkerList, visitedList, todoList;
+    private Button btnWc, btnVisited, btnToDo;
 
 
     public static MapFragment newInstance() {
         return new MapFragment();
     }
 
-    private View.OnClickListener wcButtonOnClicklistener = new View.OnClickListener() {
+    private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
             for (Marker wc : wcMarkerList){
                 if(wc.isVisible()){
                     wc.setVisible(false);
+                    btnWc.setTextColor(Color.rgb(200,0,0));
                 }else{
                     wc.setVisible(true);
+                    btnWc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
@@ -75,8 +76,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             for (Marker todo : todoList){
                 if(todo.isVisible()){
                     todo.setVisible(false);
+                    btnToDo.setTextColor(Color.rgb(200,0,0));
                 }else{
                     todo.setVisible(true);
+                    btnToDo.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
@@ -88,8 +91,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             for (Marker visited : visitedList){
                 if(visited.isVisible()){
                     visited.setVisible(false);
+                    btnVisited.setTextColor(Color.rgb(200,0,0));
                 }else{
                     visited.setVisible(true);
+                    btnVisited.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
@@ -110,11 +115,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mv.onCreate(savedInstanceState);
         mv.getMapAsync(this);
 
-        Button btnWc = view.findViewById(R.id.btn_toilet);
-        btnWc.setOnClickListener(wcButtonOnClicklistener);
-        Button btnToDo = view.findViewById(R.id.btn_todo);
+        btnWc = view.findViewById(R.id.btn_toilet);
+        btnWc.setOnClickListener(wcButtonOnClickListener);
+        btnToDo = view.findViewById(R.id.btn_todo);
         btnToDo.setOnClickListener(todoButtonOnClickListener);
-        Button btnVisited = view.findViewById(R.id.btn_visited);
+        btnVisited = view.findViewById(R.id.btn_visited);
         btnVisited.setOnClickListener(visitedButtonOnClickListener);
 
         return view;
@@ -255,11 +260,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                     todoList.add(marker);
                     visitedList.remove(marker);
+                    if(todoList.get(0).isVisible()){
+                        marker.setVisible(true);
+                    }else{
+                        marker.setVisible(false);
+                    }
                 } else {
                     c.setVisited(true);
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                     todoList.remove(marker);
                     visitedList.add(marker);
+                    if(visitedList.get(0).isVisible()){
+                        marker.setVisible(true);
+                    }else{
+                        marker.setVisible(false);
+                    }
                 }
                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
             }
