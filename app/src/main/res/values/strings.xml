@@ -31,4 +31,8 @@
     <string name="txt_btn_wc">Toilet</string>
     <string name="txt_btn_todo">To do</string>
     <string name="txt_btn_visited">Visited</string>
+    <string name="txt_about_pieter">Pieter  Vanhoof</string>
+    <string name="txt_about_carine">Carine Fulakula</string>
+    <string name="txt_about_ehb">Ehb, departement DT</string>
+    <string name="txt_about_vdab">VDAB</string>
 </resources>
