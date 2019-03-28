@@ -20,17 +20,12 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
-    private ComicHandler nComicHandler;
-    private WCHandler nWCHandler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        nWCHandler = new WCHandler(getApplicationContext());
-        nComicHandler = new ComicHandler(getApplicationContext());
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, MapFragment.newInstance()).commit();
 
-       downloadData();
+
 
     }
 
@@ -101,53 +96,5 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     }
 
 
-    private void downloadData(){
-        //comic thread
-        Thread backThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    OkHttpClient client = new OkHttpClient();
 
-                    Request request = new Request.Builder()
-                            .url("https://opendata.brussel.be/api/records/1.0/search/?dataset=comic-book-route&rows=80")
-                            .get().build();
-
-                    Response response = client.newCall(request).execute();
-
-                    String responseBodyText = response.body() != null ? response.body().string() : null;
-
-                    Message msg = new Message();
-                    msg.obj = responseBodyText;
-                    nComicHandler.sendMessage(msg);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        Thread wcBackThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-
-                    Request request = new Request.Builder().url("https://opendata.brussel.be/api/records/1.0/search/?dataset=bruxelles_urinoirs_publics&rows=100")
-                            .get().build();
-                    Response response = client.newCall(request).execute();
-
-                    String responseBodyText = response.body() != null ? response.body().string() :null;
-
-                    Message msg = new Message();
-                    msg.obj = responseBodyText;
-                    nWCHandler.sendMessage(msg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        backThread.start();
-        wcBackThread.start();
-    }
 }

@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -122,11 +123,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     }
     private void wcMarkers (){
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_wc);
+
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
-            mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(60)).title("WC").snippet(wc.getAdressN())
+            mGoogleMap.addMarker(new MarkerOptions().icon(icon).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(),wc.getLon())));
 
-            //icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
+
         }
     }
 
