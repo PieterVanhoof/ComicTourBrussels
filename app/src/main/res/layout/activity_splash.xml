@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorAccent"
     tools:context=".SplashActivity">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="Comics Tour Brussels"
-            android:textColor="#fff"
+            android:textColor="@android:color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 

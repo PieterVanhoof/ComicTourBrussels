@@ -26,8 +26,8 @@ public class DetailsListActivity extends AppCompatActivity {
         TextView textViewAuthor = findViewById(R.id.tv_details_author);
         TextView textViewDescription = findViewById(R.id.tv_details_description);
 
-        textViewPersonage.setText(detailComic.getPersonage());
-        textViewAuthor.setText( detailComic.getAuthor() );
+        textViewPersonage.setText("Personage: " +detailComic.getPersonage());
+        textViewAuthor.setText( "Author: " +detailComic.getAuthor() );
         //textViewDescription.setText(detailComic);
 
         ImageView ivBG = findViewById(R.id.iv_details_bg);
