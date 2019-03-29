@@ -1,12 +1,8 @@
 package ehb.be.comictourbrussels;
 
-
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -15,18 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import ehb.be.comictourbrussels.Room.Comic;
-import ehb.be.comictourbrussels.Room.ComicDao;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
-import ehb.be.comictourbrussels.Utils.ComicHandler;
 import ehb.be.comictourbrussels.Utils.ListFragmentAdapter;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 
 /**
@@ -34,7 +20,6 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
  */
 public class ListFragment extends Fragment {
 
-    private RecyclerView rvFragment;
     private ListFragmentAdapter adapter;
 
     public ListFragment() {
@@ -52,7 +37,7 @@ public class ListFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        rvFragment = view.findViewById(R.id.rv_fragment_list);
+        RecyclerView rvFragment = view.findViewById(R.id.rv_fragment_list);
 
         adapter = new ListFragmentAdapter( ComicDatabase.getInstance(getActivity().getApplicationContext()).getComicDAO().selectAllComic());
         rvFragment.setAdapter(adapter);
@@ -84,10 +69,6 @@ public class ListFragment extends Fragment {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }

@@ -156,9 +156,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
-    public void addMarkers() {
-
-
+    private void addMarkers() {
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
             String filename = comic.getImgID() + "ComicRoute.jpg";
@@ -168,9 +166,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
-            Log.d("TEST VISITED", comic.getVisited() + "");
 
-            Float hue;
+            float hue;
             if (comic.getVisited()) {
                 hue = BitmapDescriptorFactory.HUE_BLUE;
 
@@ -194,23 +191,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
 
 
-
-
             mGoogleMap.setOnInfoWindowClickListener(this);
         }
 
     }
     private void wcMarkers (){
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_wc);
 
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
-            mGoogleMap.addMarker(new MarkerOptions().icon(icon).title("WC").snippet(wc.getAdressN())
-                    .position(new LatLng(wc.getLat(),wc.getLon())));
+
             Marker wcMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc)).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(), wc.getLon())));
             wcMarkerList.add(wcMarker);
 
-            //icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
         }
     }
     private void RestoMarkers(){
@@ -282,8 +274,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 } else {
                     c.setVisited(true);
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                    todoList.remove(marker);
                     visitedList.add(marker);
+                    todoList.remove(marker);
                     if(visitedList.get(0).isVisible()){
                         marker.setVisible(true);
                     }else{
