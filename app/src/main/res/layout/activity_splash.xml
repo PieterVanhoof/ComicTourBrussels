@@ -18,6 +18,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/imagedescription_splash"
             android:src="@drawable/belgiancoms" />
 
         <TextView
@@ -26,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Comics Tour Brussels"
-            android:textColor="@android:color/black"
+            android:text="@string/txt_splash_comicstour"
+            android:textColor="#fff"
             android:textSize="25sp"
             android:textStyle="bold" />
 

@@ -33,8 +33,8 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(final Marker marker) {
-        //TODO hack code vervangen
-        if (marker.getTitle().contains("WC")) {
+
+        if (marker.getTag().toString().contains("icon")) {
 
         } else {
 
@@ -47,14 +47,13 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 
             String path = marker.getTag().toString();
-            Log.d("TEST", path);
 
             Uri uri = Uri.parse("file://" + path);
             ivInfoWindow.setImageURI(uri);
 
 
-            tvPersonage.setText("Personage: " + marker.getTitle());
-            tvAuthor.setText("Author: " + marker.getSnippet());
+            tvPersonage.setText(context.getString(R.string.txt_infowindowadapter_personage) + marker.getTitle());
+            tvAuthor.setText(context.getString(R.string.txt_infowindowadapter_author) + marker.getSnippet());
             return  v;
         }
 

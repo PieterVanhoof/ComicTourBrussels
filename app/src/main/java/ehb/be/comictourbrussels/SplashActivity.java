@@ -20,9 +20,8 @@ import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int timeout = 3000;
-    TextView txt;
-    ImageView img;
+    private TextView txt;
+    private ImageView img;
 
     private ComicHandler nComicHandler;
     private WCHandler nWCHandler;
@@ -45,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         txt.startAnimation(animation);
 
         Handler handler = new Handler();
+        int timeout = 3000;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -52,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },timeout);
+        }, timeout);
     }
 
     private void downloadData(){
