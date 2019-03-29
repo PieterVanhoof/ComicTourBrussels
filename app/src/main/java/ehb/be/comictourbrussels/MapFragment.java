@@ -165,7 +165,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
 
-            Float hue;
+            float hue;
             if (comic.getVisited()) {
                 hue = BitmapDescriptorFactory.HUE_BLUE;
 
@@ -264,8 +264,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 } else {
                     c.setVisited(true);
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                    todoList.remove(marker);
                     visitedList.add(marker);
+                    todoList.remove(marker);
                     if(visitedList.get(0).isVisible()){
                         marker.setVisible(true);
                     }else{

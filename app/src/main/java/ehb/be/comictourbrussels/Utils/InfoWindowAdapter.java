@@ -47,7 +47,6 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 
             String path = marker.getTag().toString();
-            Log.d("TEST", path);
 
             Uri uri = Uri.parse("file://" + path);
             ivInfoWindow.setImageURI(uri);
