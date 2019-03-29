@@ -32,7 +32,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 import ehb.be.comictourbrussels.Room.Comic;
+import ehb.be.comictourbrussels.Room.ComicDao;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
+import ehb.be.comictourbrussels.Room.Restaurant;
+import ehb.be.comictourbrussels.Room.RestaurantDAO;
 import ehb.be.comictourbrussels.Room.WC;
 import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 
@@ -110,6 +113,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         visitedList = new ArrayList<>();
         todoList = new ArrayList<>();
         wcMarkerList = new ArrayList<>();
+
 
 
         mv = view.findViewById(R.id.fragment_map);
@@ -207,6 +211,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             wcMarkerList.add(wcMarker);
 
             //icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
+        }
+    }
+    private void RestoMarkers(){
+        float hueGreen;
+        hueGreen = BitmapDescriptorFactory.HUE_GREEN;
+        for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
+            mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hueGreen)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
+
         }
     }
 

@@ -6,6 +6,9 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import ehb.be.comictourbrussels.Room.Comic;
@@ -33,6 +36,8 @@ public interface ComicDao {
 
     @Query("SELECT * FROM WC")
     List<WC> selectAllWC();
+
+
 
 
 }
