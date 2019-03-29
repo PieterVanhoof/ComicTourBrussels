@@ -37,7 +37,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
         private Comic selectedComic;
 
 
-        public FragmentListRowViewHolder(@NonNull final View itemView) {
+        private FragmentListRowViewHolder(@NonNull final View itemView) {
             super(itemView);
             personage = itemView.findViewById(R.id.tv_personage);
             ivImage = itemView.findViewById(R.id.iv_img);
@@ -98,7 +98,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
 
     public Filter getFilter(){
-        Filter filter = new Filter() {
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String searchTerm = constraint.toString().toLowerCase();
@@ -135,7 +135,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
                 notifyDataSetChanged();
             }
         };
-        return filter;
     }
 
 }

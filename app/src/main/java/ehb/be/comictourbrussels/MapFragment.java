@@ -152,9 +152,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
-    public void addMarkers() {
-
-
+    private void addMarkers() {
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
             String filename = comic.getImgID() + "ComicRoute.jpg";
