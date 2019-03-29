@@ -36,4 +36,5 @@
     <string name="txt_infowindowadapter_personage">Personage:</string>
     <string name="txt_infowindowadapter_author">Author:</string>
     <string name="txt_image_cell">Image for cell</string>
+    <string name="txt_btn_map_resto">Restaurants</string>
 </resources>

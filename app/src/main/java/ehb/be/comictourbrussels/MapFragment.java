@@ -50,13 +50,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final int requestLocation = 2;
     private Activity context;
     private MapView mv;
-    private ArrayList<Marker> wcMarkerList, visitedList, todoList;
-    private Button btnWc, btnVisited, btnToDo;
+    private ArrayList<Marker> wcMarkerList, visitedList, todoList, restoList;
+    private Button btnWc, btnVisited, btnToDo, btnResto;
 
 
     public static MapFragment newInstance() {
         return new MapFragment();
     }
+
+    private View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for ( Marker resto : restoList){
+                if(resto.isVisible()){
+                    resto.setVisible(false);
+                    btnResto.setTextColor(Color.rgb(200,0,0));
+                }else{
+                    resto.setVisible(true);
+                    btnResto.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+            }
+        }
+    };
 
     private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -113,9 +128,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         visitedList = new ArrayList<>();
         todoList = new ArrayList<>();
         wcMarkerList = new ArrayList<>();
-
-
-
+        restoList = new ArrayList<>();
 
         mv = view.findViewById(R.id.fragment_map);
         mv.onCreate(savedInstanceState);
@@ -127,6 +140,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         btnToDo.setOnClickListener(todoButtonOnClickListener);
         btnVisited = view.findViewById(R.id.btn_visited);
         btnVisited.setOnClickListener(visitedButtonOnClickListener);
+        btnResto = view.findViewById(R.id.btn_resto);
+        btnResto.setOnClickListener(restoButtonOnClickListener);
 
         return view;
     }
@@ -215,6 +230,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
             Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hueGreen)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
             restoMarker.setTag("icon");
+            restoList.add(restoMarker);
         }
     }
 
