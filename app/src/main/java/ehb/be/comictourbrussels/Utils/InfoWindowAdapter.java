@@ -33,8 +33,8 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(final Marker marker) {
-        //TODO hack code vervangen
-        if (marker.getTitle().contains("WC")) {
+
+        if (marker.getTag().toString().contains("icon")) {
 
         } else {
 

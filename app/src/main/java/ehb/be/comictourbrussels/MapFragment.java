@@ -116,6 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
 
 
+
         mv = view.findViewById(R.id.fragment_map);
         mv.onCreate(savedInstanceState);
         mv.getMapAsync(this);
@@ -152,6 +153,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         startLocationUpdates();
         addMarkers();
         wcMarkers();
+        RestoMarkers();
 
     }
 
@@ -201,7 +203,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
             Marker wcMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc)).title("WC").snippet(wc.getAdressN())
                     .position(new LatLng(wc.getLat(), wc.getLon())));
+            wcMarker.setTag("icon");
             wcMarkerList.add(wcMarker);
+
 
         }
     }
@@ -209,8 +213,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         float hueGreen;
         hueGreen = BitmapDescriptorFactory.HUE_GREEN;
         for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
-            mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hueGreen)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
-
+            Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hueGreen)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
+            restoMarker.setTag("icon");
         }
     }
 
