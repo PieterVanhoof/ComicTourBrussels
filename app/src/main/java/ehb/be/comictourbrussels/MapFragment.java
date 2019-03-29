@@ -225,10 +225,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
     private void RestoMarkers(){
-        float hueGreen;
-        hueGreen = BitmapDescriptorFactory.HUE_GREEN;
         for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
-            Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hueGreen)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
+            Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_resto)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
             restoMarker.setTag("icon");
             restoList.add(restoMarker);
         }
