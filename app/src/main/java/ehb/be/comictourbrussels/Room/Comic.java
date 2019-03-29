@@ -20,6 +20,7 @@ public class Comic implements Serializable {
     private String personage;
     private String author;
     private String ImgID;
+    private String jaar;
     private Boolean visited;
 
     @Ignore
@@ -27,12 +28,13 @@ public class Comic implements Serializable {
     }
 
 
-    public Comic(double lat, double lon, String personage, String author, String ImgID, Boolean visited) {
+    public Comic(double lat, double lon, String personage, String author, String ImgID, String jaar, Boolean visited) {
         this.lat = lat;
         this.lon = lon;
         this.personage = personage;
         this.author = author;
         this.ImgID = ImgID;
+        this.jaar = jaar;
         this.visited = visited;
 
     }
@@ -45,6 +47,10 @@ public class Comic implements Serializable {
     public void setVisited(Boolean visited) {
         this.visited = visited;
     }
+
+    public String getJaar() { return jaar; }
+
+    public void setJaar(String year) { this.jaar = jaar; }
 
     public String getImgID() {
         return ImgID;
@@ -105,6 +111,7 @@ public class Comic implements Serializable {
                 ", author='" + author + '\'' +
                 ", ImgID='" + ImgID + '\'' +
                 ", visited=" + visited +
+                ", jaar=" + jaar + '\'' +
                 '}';
     }
 }

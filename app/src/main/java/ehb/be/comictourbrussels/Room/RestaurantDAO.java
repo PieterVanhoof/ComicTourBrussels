@@ -22,6 +22,8 @@ public class RestaurantDAO {
 
         Restaurants.add(new Restaurant(new LatLng(50.845171, 4.346929), "Moeder Lambic fontainas","Tof Restaurant!"));
         Restaurants.add(new Restaurant(new LatLng(50.847610, 4.350156), "Balls & Glory!","Tof Restaurant!"));
+        Restaurants.add(new Restaurant(new LatLng(50.849602, 4.347221), "Fin De Siècle", "Bangers & Mash"));
+        Restaurants.add(new Restaurant(new LatLng(50.848705, 4.353101), "L'Ana Thème", "Gastronomie"));
 
 
         return Restaurants;

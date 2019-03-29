@@ -57,6 +57,7 @@ public class ComicHandler extends Handler {
 
                     String personage = (fields.getString("personnage_s") != null) ? fields.getString("personnage_s") : "Unknown";
                     String author = (fields.getString("auteur_s") != null) ? fields.getString("auteur_s") : "Unknown";
+                    String jaar = (fields.getString("annee") != null) ? fields.getString("annee") : "Unknown";
 
 
                     JSONObject imageArray = fields.getJSONObject("photo");
@@ -100,7 +101,7 @@ public class ComicHandler extends Handler {
                                 }
                             });
 
-                    Comic currentComic = new Comic(lat, lng, personage, author, imgID, false);
+                    Comic currentComic = new Comic(lat, lng, personage, author, imgID, jaar, false);
 
 
                     ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
