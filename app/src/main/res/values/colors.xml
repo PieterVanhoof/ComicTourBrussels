@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#338a3e</color>
     <color name="colorAccent">#98EE99</color>
     <color name="ColorOpacity">#29989FEE</color>
+    <color name="green_opacity">#3C66BB6A</color>
+    <color name="GreenOpacity">#AA66BB6A</color>
 </resources>

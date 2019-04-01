@@ -9,7 +9,7 @@
 
 
     <string name="txt_about_title">About</string>
-    <string name="txt_about_authors">Authors</string>
+    <string name="txt_about_authors">Authors:</string>
     <string name="txt_about_partners">Partners:</string>
     <string name="txt_menu_search">Search</string>
     <string name="text_title_details">Details</string>
@@ -38,4 +38,5 @@
     <string name="txt_image_cell">Image for cell</string>
     <string name="txt_btn_map_resto">Restaurants</string>
     <string name="txt_lbl_details_personage">Personage:</string>
+    <string name="txt_details_year">Year:</string>
 </resources>
