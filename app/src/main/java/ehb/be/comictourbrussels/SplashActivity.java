@@ -20,9 +20,6 @@ import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private TextView txt;
-    private ImageView img;
-
     private ComicHandler nComicHandler;
     private WCHandler nWCHandler;
 
@@ -35,8 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         nWCHandler = new WCHandler(getApplicationContext());
         nComicHandler = new ComicHandler(getApplicationContext());
 
-        txt = findViewById(R.id.txt);
-        img = findViewById(R.id.img);
+        TextView txt = findViewById(R.id.txt);
+        ImageView img = findViewById(R.id.img);
         downloadData();
         Animation animation = AnimationUtils.loadAnimation(SplashActivity.this,
                 R.anim.myanim);
