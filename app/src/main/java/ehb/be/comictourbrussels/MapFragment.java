@@ -183,23 +183,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             mGoogleMap.setInfoWindowAdapter(markerInfoWindow);
 
 
-            float hue;
             if (comic.getVisited()) {
-                hue = BitmapDescriptorFactory.HUE_BLUE;
 
                 Marker m = mGoogleMap.addMarker(new MarkerOptions()
                         .title(comic.getPersonage()).snippet(comic.getAuthor())
-                        .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_check)).position(new LatLng(comic.getLat(), comic.getLon())));
 
                 m.setTag(path);
 
                 visitedList.add(m);
             } else {
-                hue = BitmapDescriptorFactory.HUE_RED;
 
                 Marker m = mGoogleMap.addMarker(new MarkerOptions()
                         .title(comic.getPersonage()).snippet(comic.getAuthor())
-                        .icon(BitmapDescriptorFactory.defaultMarker(hue)).position(new LatLng(comic.getLat(), comic.getLon())));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_todo)).position(new LatLng(comic.getLat(), comic.getLon())));
 
                 m.setTag(path);
 
@@ -276,7 +273,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             if (c.getPersonage().contains(marker.getTitle())) {
                 if (c.getVisited()) {
                     c.setVisited(false);
-                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_todo));
                     todoList.add(marker);
                     visitedList.remove(marker);
                     if(todoList.get(0).isVisible()){
@@ -286,7 +283,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     }
                 } else {
                     c.setVisited(true);
-                    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_check));
                     visitedList.add(marker);
                     todoList.remove(marker);
                     if(visitedList.get(0).isVisible()){

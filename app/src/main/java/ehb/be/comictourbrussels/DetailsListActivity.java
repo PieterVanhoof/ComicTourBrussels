@@ -22,13 +22,11 @@ public class DetailsListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Comic detailComic = (Comic) intent.getSerializableExtra("comic");
 
-        TextView textViewPersonage = findViewById(R.id.tv_details_personage);
-        TextView textViewAuthor = findViewById(R.id.tv_details_author);
-        TextView textViewDescription = findViewById(R.id.tv_details_description);
+        TextView tvDetails = findViewById(R.id.tv_details);
 
-        textViewPersonage.setText("Personage: " +detailComic.getPersonage());
-        textViewAuthor.setText( "Author: " +detailComic.getAuthor() );
-        textViewDescription.setText("Jaar: " +detailComic.getJaar() );
+
+        tvDetails.setText(getString(R.string.txt_details_personage) +detailComic.getPersonage()+"\n"+getString(R.string.txt_details_author)
+                +detailComic.getAuthor()+"\n"+getString(R.string.txt_details_year) +detailComic.getJaar());
 
         ImageView ivBG = findViewById(R.id.iv_details_bg);
 

@@ -118,9 +118,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
                 return null;
             }
 
-    public void setItems(List<Comic> comics) {
-        items.addAll(comics);
-    }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Strip Toer Brussel</string>
+    <string name="txt_nav_list">Strip Lijst</string>
+    <string name="txt_nav_map">Map</string>
+    <string name="txt_about_authors">Auteurs:</string>
+    <string name="txt_about_partners">Partners:</string>
+    <string name="txt_menu_search">Zoek</string>
+    <string name="text_title_details">Details</string>
+    <string name="text_details_description">Beschrijving</string>
+    <string name="text_details_describe">Beschrijving</string>
+    <string name="txt_lbl_details">Details</string>
+    <string name="txt_about_jorn">Jorn Rymenans</string>
+    <string name="txt_button_visited">Bezocht</string>
+    <string name="txt_tv_visited">Klik als u deze heeft bezocht</string>
+    <string name="nav_title">Strip toer</string>
+    <string name="txt_btn_wc">Toilet</string>
+    <string name="txt_btn_todo">"Te doen "</string>
+    <string name="txt_btn_visited">Bezocht</string>
+    <string name="txt_about_pieter">Pieter Vanhoof</string>
+    <string name="txt_about_carine">Carine Fulakula</string>
+    <string name="txt_about_ehb">Ehb, departement DT</string>
+    <string name="txt_about_vdab">VDAB</string>
+    <string name="txt_image_description">Strip Afbeelding</string>
+    <string name="contentdescription_details">Achtergrond Afbeelding</string>
+    <string name="txt_splash_comicstour">Strip Toer Brussel</string>
+    <string name="txt_infowindowadapter_personage">Personage:</string>
+    <string name="txt_infowindowadapter_author">Auteurs:</string>
+    <string name="txt_btn_map_resto">Restaurants</string>
+    <string name="txt_lbl_details_personage">Personage:</string>
+    <string name="txt_details_year">Jaar:</string>
+    <string name="txt_nav_about">Over ons</string>
+    <string name="txt_about_title">Over ons</string>
+    <string name="txt_details_personage">Personage:</string>
+    <string name="txt_details_author">Auteur:</string>
+</resources>
