@@ -57,7 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public static MapFragment newInstance() {
         return new MapFragment();
     }
-
+    //visibility Restaurants
     private View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -72,7 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
         }
     };
-
+    //visibility WC's
     private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -88,7 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
         }
     };
-
+    //Visibility comics
     private View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -103,7 +103,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
         }
     };
-
+    //visibility Visited
     private View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -134,6 +134,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mv.onCreate(savedInstanceState);
         mv.getMapAsync(this);
 
+        //finding views & setting listeners
         btnWc = view.findViewById(R.id.btn_toilet);
         btnWc.setOnClickListener(wcButtonOnClickListener);
         btnToDo = view.findViewById(R.id.btn_todo);
@@ -150,7 +151,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-
     }
 
     @Override
@@ -169,10 +169,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         addMarkers();
         wcMarkers();
         RestoMarkers();
-
     }
 
-
+    //Comic Markers
     private void addMarkers() {
 
         for (Comic comic : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
@@ -206,12 +205,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
                 todoList.add(m);
             }
-
-
             mGoogleMap.setOnInfoWindowClickListener(this);
         }
 
     }
+    //WC Markers
     private void wcMarkers (){
 
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
@@ -220,10 +218,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     .position(new LatLng(wc.getLat(), wc.getLon())));
             wcMarker.setTag("icon");
             wcMarkerList.add(wcMarker);
-
-
         }
     }
+
+    //Restaurant Markers
     private void RestoMarkers(){
         for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
             Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_resto)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
@@ -238,7 +236,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mGoogleMap.animateCamera(update);
 
     }
-
+    //Sets location to self
     private void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -246,8 +244,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
                 String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
                 requestPermissions(permissions, requestLocation);
-
-
             } else {
                 mGoogleMap.setMyLocationEnabled(true);
             }
@@ -268,12 +264,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     mGoogleMap.setMyLocationEnabled(true);
                 }
             }
-
         }
-
     }
 
     @Override
+    //Creating marker Infowindow
     public void onInfoWindowClick(Marker marker) {
 
         for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {

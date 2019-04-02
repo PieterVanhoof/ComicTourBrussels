@@ -81,6 +81,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
+        //WC's backthread
         Thread wcBackThread = new Thread(new Runnable() {
             @Override
             public void run() {

@@ -52,7 +52,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
                     c.startActivity(intent);
                 }
             });
-
         }
     }
 
@@ -96,7 +95,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
         return filteredItems.size();
     }
 
-
     public Filter getFilter(){
         return new Filter() {
             @Override
@@ -111,7 +109,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
                         if (lowerCase.contains(searchTerm)) {
                             tempList.add(comic);
-
                         }
                     }
                     FilterResults filterResults = new FilterResults();
@@ -136,7 +133,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
             }
         };
     }
-
 }
 
 

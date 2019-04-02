@@ -69,7 +69,7 @@ public class ComicHandler extends Handler {
 
                     String imgID = (imageArray.getString("id") != null) ? imageArray.getString("id") : "Unknown";
 
-                    // Your image address. ex: "http://http://stackoverflow.com/myImages.jpg"
+
                     String MY_IMAGE_URL = "https://opendata.brussel.be/explore/dataset/comic-book-route/files/" + imgID + "/300/";
                     final ImageView ivComic = new ImageView(context);
                     final String img_path = context.getFilesDir() + "/" + imgID + "ComicRoute.jpg";

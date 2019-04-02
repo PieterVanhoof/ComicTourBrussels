@@ -37,7 +37,6 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         if (marker.getTag().toString().contains("icon")) {
 
         } else {
-
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.info_window, null);
 
@@ -59,6 +58,4 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
             return null;
         }
-
-
 }

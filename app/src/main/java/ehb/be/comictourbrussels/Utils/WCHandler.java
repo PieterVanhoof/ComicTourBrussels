@@ -45,8 +45,6 @@ public class WCHandler extends Handler {
                     double lat = (double) coordinate.get(0);
                     double lon = (double) coordinate.get(1);
 
-
-
                     WC currentWc = new WC(lat, lon, adressN, "adres");
                     ComicDatabase.getInstance(context).getComicDAO().insertWc(currentWc);
 
