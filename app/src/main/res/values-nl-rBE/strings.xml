@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="imagedescription_splash">splash image</string>
+    <string name="txt_image_cell">Image for cell</string>
     <string name="app_name">Strip Toer Brussel</string>
     <string name="txt_nav_list">Strip Lijst</string>
     <string name="txt_nav_map">Map</string>
@@ -33,4 +38,5 @@
     <string name="txt_about_title">Over ons</string>
     <string name="txt_details_personage">Personage:</string>
     <string name="txt_details_author">Auteur:</string>
+    <string name="txt_nearby"> is dichtbij</string>
 </resources>

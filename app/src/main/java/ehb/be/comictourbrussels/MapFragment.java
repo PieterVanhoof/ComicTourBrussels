@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,8 +32,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDao;
@@ -52,7 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private MapView mv;
     private ArrayList<Marker> wcMarkerList, visitedList, todoList, restoList;
     private Button btnWc, btnVisited, btnToDo, btnResto;
-
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location user;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -61,11 +68,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for ( Marker resto : restoList){
-                if(resto.isVisible()){
+            for (Marker resto : restoList) {
+                if (resto.isVisible()) {
                     resto.setVisible(false);
-                    btnResto.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnResto.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     resto.setVisible(true);
                     btnResto.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -77,11 +84,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         @Override
         public void onClick(View v) {
 
-            for (Marker wc : wcMarkerList){
-                if(wc.isVisible()){
+            for (Marker wc : wcMarkerList) {
+                if (wc.isVisible()) {
                     wc.setVisible(false);
-                    btnWc.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnWc.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     wc.setVisible(true);
                     btnWc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -92,11 +99,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Marker todo : todoList){
-                if(todo.isVisible()){
+            for (Marker todo : todoList) {
+                if (todo.isVisible()) {
                     todo.setVisible(false);
-                    btnToDo.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnToDo.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     todo.setVisible(true);
                     btnToDo.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -107,11 +114,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Marker visited : visitedList){
-                if(visited.isVisible()){
+            for (Marker visited : visitedList) {
+                if (visited.isVisible()) {
                     visited.setVisible(false);
-                    btnVisited.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnVisited.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     visited.setVisible(true);
                     btnVisited.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -151,7 +158,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         super.onCreate(savedInstanceState);
         context = getActivity();
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(context, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    user = new Location("user");
+                    user.setLatitude(location.getLatitude());
+                    user.setLongitude(location.getLongitude());
+                }
+                for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+                    Location locationcomic = new Location("locationcomic");
+                    locationcomic.setLatitude(c.getLat());
+                    locationcomic.setLongitude(c.getLon());
+                    float distance = locationcomic.distanceTo(user);
+                    Log.d("Test location", distance+"");
+                    if (distance < 100)
+                        Toast.makeText(context, c.getPersonage()+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
 
     @Override
     public void onResume() {
@@ -169,7 +209,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         addMarkers();
         wcMarkers();
         RestoMarkers();
-
     }
 
 
@@ -300,6 +339,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
             }
         }
-
     }
+
+
+
 }
