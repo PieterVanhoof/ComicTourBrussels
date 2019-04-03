@@ -40,4 +40,5 @@
     <string name="txt_lbl_details_personage">Personage:</string>
     <string name="txt_details_year">Year:</string>
     <string name="txt_nearby"> is nearby</string>
+    <string name="txt_balloon_description">Text balloon</string>
 </resources>

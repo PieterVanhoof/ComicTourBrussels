@@ -1,7 +1,6 @@
 package ehb.be.comictourbrussels.Room;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -29,7 +28,6 @@ public class WC implements Serializable {
         AdressF = adressF;
     }
 
-
     public long getId() {
         return id;
     }
@@ -38,24 +36,12 @@ public class WC implements Serializable {
         this.id = id;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
     public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public double getLon() {
-        return lon;
-    }
-
     public void setLon(double lon) {
         this.lon = lon;
-    }
-
-    public String getAdressN() {
-        return AdressN;
     }
 
     public void setAdressN(String adressN) {
@@ -69,6 +55,20 @@ public class WC implements Serializable {
     public void setAdressF(String adressF) {
         AdressF = adressF;
     }
+
+    public double getLat() {
+        return lat;
+    }
+
+
+    public double getLon() {
+        return lon;
+    }
+
+    public String getAdressN() {
+        return AdressN;
+    }
+
 
     @Override
     public String toString() {

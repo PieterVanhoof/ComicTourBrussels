@@ -4,10 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class Comic implements Serializable {
@@ -39,6 +36,37 @@ public class Comic implements Serializable {
 
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public void setPersonage(String personage) {
+        this.personage = personage;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setImgID(String imgID) {
+        ImgID = imgID;
+    }
+
+    public void setJaar(String jaar) {
+        this.jaar = jaar;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public Boolean getVisited() {
         return visited;
@@ -50,54 +78,24 @@ public class Comic implements Serializable {
 
     public String getJaar() { return jaar; }
 
-    public void setJaar(String year) { this.jaar = jaar; }
-
     public String getImgID() {
         return ImgID;
-    }
-
-    public void setImgID(String imgID) {
-        ImgID = imgID;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public double getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
     public double getLon() {
         return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
     }
 
     public String getPersonage() {
         return personage;
     }
 
-    public void setPersonage(String personage) {
-        this.personage = personage;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
 

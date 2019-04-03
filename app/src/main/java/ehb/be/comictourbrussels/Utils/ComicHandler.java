@@ -3,14 +3,10 @@ package ehb.be.comictourbrussels.Utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -23,11 +19,10 @@ import java.io.IOException;
 
 import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
-import okhttp3.internal.cache.CacheStrategy;
 
 public class ComicHandler extends Handler {
 
-    private Context context;
+    private final Context context;
 
     public ComicHandler(Context context) {
         this.context = context;

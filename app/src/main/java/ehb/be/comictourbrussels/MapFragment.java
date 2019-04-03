@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -36,10 +34,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 
 import ehb.be.comictourbrussels.Room.Comic;
-import ehb.be.comictourbrussels.Room.ComicDao;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
 import ehb.be.comictourbrussels.Room.Restaurant;
 import ehb.be.comictourbrussels.Room.RestaurantDAO;
@@ -65,7 +61,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         return new MapFragment();
     }
 
-    private View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             for (Marker resto : restoList) {
@@ -80,7 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     };
 
-    private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -96,7 +92,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     };
 
-    private View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             for (Marker todo : todoList) {
@@ -111,7 +107,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     };
 
-    private View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             for (Marker visited : visitedList) {

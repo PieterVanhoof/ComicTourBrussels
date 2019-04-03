@@ -2,24 +2,19 @@ package ehb.be.comictourbrussels.Utils;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import ehb.be.comictourbrussels.R;
 
 public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
-    private Context context;
+    private final Context context;
 
 
     public InfoWindowAdapter(Context context){

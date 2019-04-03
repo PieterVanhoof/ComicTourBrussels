@@ -39,4 +39,5 @@
     <string name="txt_details_personage">Personage:</string>
     <string name="txt_details_author">Auteur:</string>
     <string name="txt_nearby"> is dichtbij</string>
+    <string name="txt_balloon_description">Text balloon</string>
 </resources>
