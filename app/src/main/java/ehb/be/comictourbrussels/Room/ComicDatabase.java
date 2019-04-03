@@ -17,12 +17,9 @@ public abstract class ComicDatabase extends RoomDatabase {
         return instance;
     }
 
-
     private static ComicDatabase createDatabase (Context context){
         return Room.databaseBuilder(context, ComicDatabase.class,"comic.db").allowMainThreadQueries().build();
     }
 
     public abstract ComicDao getComicDAO();
-
-
 }

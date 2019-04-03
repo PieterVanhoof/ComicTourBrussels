@@ -21,7 +21,6 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
 
-
     public InfoWindowAdapter(Context context){
         this.context = context.getApplicationContext();
     }
@@ -43,12 +42,10 @@ public class InfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         TextView tvAuthor = v.findViewById(R.id.tv_infowindow_author);
         ImageView ivInfoWindow = v.findViewById(R.id.iv_infowindow_image);
 
-
             String path = marker.getTag().toString();
 
             Uri uri = Uri.parse("file://" + path);
             ivInfoWindow.setImageURI(uri);
-
 
             tvPersonage.setText(context.getString(R.string.txt_infowindowadapter_personage) + marker.getTitle());
             tvAuthor.setText(context.getString(R.string.txt_infowindowadapter_author) + marker.getSnippet());

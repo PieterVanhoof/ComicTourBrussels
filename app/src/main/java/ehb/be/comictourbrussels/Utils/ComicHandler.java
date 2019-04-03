@@ -55,13 +55,17 @@ public class ComicHandler extends Handler {
                     JSONObject fields = currentRecord.getJSONObject("fields");
 
 
-                    String personage = (fields.getString("personnage_s") != null) ? fields.getString("personnage_s") : "Unknown";
-                    String author = (fields.getString("auteur_s") != null) ? fields.getString("auteur_s") : "Unknown";
-                    String jaar = (fields.getString("annee") != null) ? fields.getString("annee") : "Unknown";
+                    String personage = (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unknown";
+                    String author = (fields.has("auteur_s")) ? fields.getString("auteur_s") : "Unknown";
+                    String jaar = (fields.has("annee")) ? fields.getString("annee") : "Unknown";
+                    String id = (currentRecord.has("recordid")) ? currentRecord.getString("recordid") : "Unkown";
+                    Log.d("Test", id);
+                    Log.d("Test1", jaar);
 
 
                     JSONObject imageArray = fields.getJSONObject("photo");
                     JSONArray coordinate = fields.getJSONArray("coordonnees_geographiques");
+
 
                     double lat = (double) coordinate.get(0);
                     double lng = (double) coordinate.get(1);
@@ -101,10 +105,10 @@ public class ComicHandler extends Handler {
                                 }
                             });
 
-                    Comic currentComic = new Comic(lat, lng, personage, author, imgID, jaar, false);
+                    Comic currentComic = new Comic(id, lat, lng, personage, author, imgID, jaar, false);
 
 
-                    ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
+                        ComicDatabase.getInstance(context).getComicDAO().insertComic(currentComic);
 
                     index++;
                 }

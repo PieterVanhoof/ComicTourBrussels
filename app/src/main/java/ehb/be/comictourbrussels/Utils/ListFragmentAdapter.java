@@ -57,8 +57,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
     private List<Comic> items, filteredItems;
 
-
-
     public ListFragmentAdapter(List<Comic> items) {
         this.items = items;
         this.filteredItems = items;

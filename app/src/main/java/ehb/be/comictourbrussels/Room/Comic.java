@@ -3,6 +3,7 @@ package ehb.be.comictourbrussels.Room;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -12,9 +13,8 @@ import java.util.Objects;
 @Entity
 public class Comic implements Serializable {
     //TODO primary key naar die van de dataset omzetten
-    @PrimaryKey(autoGenerate = true)
-    private long id;
-
+    @NonNull @PrimaryKey
+    private String id;
     private double lat;
     private double lon;
     private String personage;
@@ -28,7 +28,8 @@ public class Comic implements Serializable {
     }
 
 
-    public Comic(double lat, double lon, String personage, String author, String ImgID, String jaar, Boolean visited) {
+    public Comic(String id, double lat, double lon, String personage, String author, String ImgID, String jaar, Boolean visited) {
+        this.id = id;
         this.lat = lat;
         this.lon = lon;
         this.personage = personage;
@@ -38,8 +39,7 @@ public class Comic implements Serializable {
         this.visited = visited;
 
     }
-
-
+    
     public Boolean getVisited() {
         return visited;
     }
@@ -60,13 +60,9 @@ public class Comic implements Serializable {
         ImgID = imgID;
     }
 
-    public long getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
 
     public double getLat() {
         return lat;
@@ -104,14 +100,14 @@ public class Comic implements Serializable {
     @Override
     public String toString() {
         return "Comic{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", lat=" + lat +
                 ", lon=" + lon +
                 ", personage='" + personage + '\'' +
                 ", author='" + author + '\'' +
                 ", ImgID='" + ImgID + '\'' +
+                ", jaar='" + jaar + '\'' +
                 ", visited=" + visited +
-                ", jaar=" + jaar + '\'' +
                 '}';
     }
 }
