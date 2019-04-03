@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -49,7 +50,7 @@ import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, LocationListener {
 
     private GoogleMap mGoogleMap;
     private final LatLng BRUSSEL = new LatLng(50.858712, 4.347446);
@@ -58,7 +59,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private MapView mv;
     private ArrayList<Marker> wcMarkerList, visitedList, todoList, restoList;
     private Button btnWc, btnVisited, btnToDo, btnResto;
-    private FusedLocationProviderClient fusedLocationProviderClient;
     private Location user;
 
     public static MapFragment newInstance() {
@@ -150,6 +150,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         btnResto = view.findViewById(R.id.btn_resto);
         btnResto.setOnClickListener(restoButtonOnClickListener);
 
+
         return view;
     }
 
@@ -158,38 +159,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         super.onCreate(savedInstanceState);
         context = getActivity();
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(context, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if(location != null) {
-                    user = new Location("user");
-                    user.setLatitude(location.getLatitude());
-                    user.setLongitude(location.getLongitude());
-                }
-                for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
-                    Location locationcomic = new Location("locationcomic");
-                    locationcomic.setLatitude(c.getLat());
-                    locationcomic.setLongitude(c.getLon());
-                    float distance = locationcomic.distanceTo(user);
-                    Log.d("Test location", distance+"");
-                    if (distance < 100)
-                        Toast.makeText(context, c.getPersonage()+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
 
@@ -197,6 +167,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onResume() {
         super.onResume();
         mv.onResume();
+        onLocationChanged(user);
     }
 
 
@@ -342,5 +313,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
 
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(context, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    user = new Location("user");
+                    user.setLatitude(location.getLatitude());
+                    user.setLongitude(location.getLongitude());
+                }
+                for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+                    Location locationcomic = new Location("locationcomic");
+                    locationcomic.setLatitude(c.getLat());
+                    locationcomic.setLongitude(c.getLon());
+                    float distance = locationcomic.distanceTo(user);
+                    if (distance < 1500)
+                        Toast.makeText(context, c.getPersonage()+" "+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
