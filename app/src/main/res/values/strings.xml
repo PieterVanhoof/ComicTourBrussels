@@ -12,14 +12,10 @@
     <string name="txt_about_authors">Authors:</string>
     <string name="txt_about_partners">Partners:</string>
     <string name="txt_menu_search">Search</string>
-    <string name="text_title_details">Details</string>
     <string name="txt_details_personage">Personage:</string>
     <string name="txt_details_author">Author:</string>
-    <string name="text_details_description">Description</string>
-    <string name="text_details_describe">Description:</string>
     <string name="txt_lbl_details">Details</string>
     <string name="txt_about_jorn">Jorn Rymenans</string>
-    <string name="txt_button_visited">Visited</string>
     <string name="txt_tv_visited">Click if visited</string>
     <string name="nav_title">Comic Tour</string>
     <string name="txt_btn_wc">Toilet</string>
@@ -37,6 +33,7 @@
     <string name="txt_infowindowadapter_author">Author:</string>
     <string name="txt_image_cell">Image for cell</string>
     <string name="txt_btn_map_resto">Restaurants</string>
-    <string name="txt_lbl_details_personage">Personage:</string>
     <string name="txt_details_year">Year:</string>
+    <string name="txt_nearby"> is nearby</string>
+    <string name="txt_balloon_description">Text balloon</string>
 </resources>

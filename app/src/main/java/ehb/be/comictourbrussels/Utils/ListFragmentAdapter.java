@@ -4,27 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import ehb.be.comictourbrussels.DetailsListActivity;
-import ehb.be.comictourbrussels.MapFragment;
 import ehb.be.comictourbrussels.R;
 import ehb.be.comictourbrussels.Room.Comic;
 
@@ -32,8 +25,8 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
     class FragmentListRowViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView personage;
-        private ImageView ivImage;
+        private final TextView personage;
+        private final ImageView ivImage;
         private Comic selectedComic;
 
 
@@ -55,7 +48,8 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
         }
     }
 
-    private List<Comic> items, filteredItems;
+    private final List<Comic> items;
+    private List<Comic> filteredItems;
 
     public ListFragmentAdapter(List<Comic> items) {
         this.items = items;

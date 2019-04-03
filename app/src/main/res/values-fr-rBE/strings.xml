@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="imagedescription_splash">splash image</string>
+    <string name="txt_image_cell">Image for cell</string>
     <string name="app_name">Parcours BD bruxelles</string>
     <string name="txt_nav_about">Qui sommes-nous</string>
     <string name="txt_about_title">Qui sommes-nous</string>
     <string name="txt_lbl_details">Détails</string>
     <string name="txt_about_jorn">Jorn Rymenans</string>
-    <string name="txt_button_visited">Visité</string>
     <string name="txt_tv_visited">Clicquez si vous avez visité</string>
     <string name="nav_title">Parcours BD</string>
     <string name="txt_btn_wc">Toilette</string>
@@ -15,13 +19,9 @@
     <string name="txt_about_carine">Carine Fulakula</string>
     <string name="txt_about_ehb">Ehb, departement DT</string>
     <string name="txt_about_vdab">VDAB</string>
-    <string name="text_details_description">Description</string>
-    <string name="text_details_describe">Description:</string>
     <string name="txt_menu_search">Recherche</string>
     <string name="txt_about_partners">Partenaires:</string>
-    <string name="text_title_details">Détails</string>
     <string name="txt_details_year">Année:</string>
-    <string name="txt_lbl_details_personage">Personnage:</string>
     <string name="txt_btn_map_resto">Restaurants:</string>
     <string name="txt_nav_list">"Liste Bande Dessinée "</string>
     <string name="txt_nav_map">Carte</string>
@@ -33,4 +33,6 @@
     <string name="txt_infowindowadapter_author">Auteur:</string>
     <string name="txt_infowindowadapter_personage">"Personnage: "</string>
     <string name="txt_splash_comicstour">Parcours BD Bruxelles</string>
+    <string name="txt_nearby"> est proche</string>
+    <string name="txt_balloon_description">Text balloon</string>
 </resources>

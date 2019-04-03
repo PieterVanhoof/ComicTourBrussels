@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="imagedescription_splash">splash image</string>
+    <string name="txt_image_cell">Image for cell</string>
     <string name="app_name">Strip Toer Brussel</string>
     <string name="txt_nav_list">Strip Lijst</string>
     <string name="txt_nav_map">Map</string>
     <string name="txt_about_authors">Auteurs:</string>
     <string name="txt_about_partners">Partners:</string>
     <string name="txt_menu_search">Zoek</string>
-    <string name="text_title_details">Details</string>
-    <string name="text_details_description">Beschrijving</string>
-    <string name="text_details_describe">Beschrijving</string>
     <string name="txt_lbl_details">Details</string>
     <string name="txt_about_jorn">Jorn Rymenans</string>
-    <string name="txt_button_visited">Bezocht</string>
     <string name="txt_tv_visited">Klik als u deze heeft bezocht</string>
     <string name="nav_title">Strip toer</string>
     <string name="txt_btn_wc">Toilet</string>
@@ -27,10 +28,11 @@
     <string name="txt_infowindowadapter_personage">Personage:</string>
     <string name="txt_infowindowadapter_author">Auteurs:</string>
     <string name="txt_btn_map_resto">Restaurants</string>
-    <string name="txt_lbl_details_personage">Personage:</string>
     <string name="txt_details_year">Jaar:</string>
     <string name="txt_nav_about">Over ons</string>
     <string name="txt_about_title">Over ons</string>
     <string name="txt_details_personage">Personage:</string>
     <string name="txt_details_author">Auteur:</string>
+    <string name="txt_nearby"> is dichtbij</string>
+    <string name="txt_balloon_description">Text balloon</string>
 </resources>

@@ -6,33 +6,36 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
 import ehb.be.comictourbrussels.Room.Comic;
-import ehb.be.comictourbrussels.Room.ComicDao;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
 import ehb.be.comictourbrussels.Room.Restaurant;
 import ehb.be.comictourbrussels.Room.RestaurantDAO;
@@ -43,7 +46,7 @@ import ehb.be.comictourbrussels.Utils.InfoWindowAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, LocationListener {
 
     private GoogleMap mGoogleMap;
     private final LatLng BRUSSEL = new LatLng(50.858712, 4.347446);
@@ -52,51 +55,51 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private MapView mv;
     private ArrayList<Marker> wcMarkerList, visitedList, todoList, restoList;
     private Button btnWc, btnVisited, btnToDo, btnResto;
-
+    private Location user;
 
     public static MapFragment newInstance() {
         return new MapFragment();
     }
     //visibility Restaurants
-    private View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for ( Marker resto : restoList){
-                if(resto.isVisible()){
+            for (Marker resto : restoList) {
+                if (resto.isVisible()) {
                     resto.setVisible(false);
-                    btnResto.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnResto.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     resto.setVisible(true);
                     btnResto.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
     };
-    //visibility WC's
-    private View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
+
+    private final View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            for (Marker wc : wcMarkerList){
-                if(wc.isVisible()){
+            for (Marker wc : wcMarkerList) {
+                if (wc.isVisible()) {
                     wc.setVisible(false);
-                    btnWc.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnWc.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     wc.setVisible(true);
                     btnWc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         }
     };
-    //Visibility comics
-    private View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
+
+    private final View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Marker todo : todoList){
-                if(todo.isVisible()){
+            for (Marker todo : todoList) {
+                if (todo.isVisible()) {
                     todo.setVisible(false);
-                    btnToDo.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnToDo.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     todo.setVisible(true);
                     btnToDo.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -104,14 +107,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     };
     //visibility Visited
-    private View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener visitedButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Marker visited : visitedList){
-                if(visited.isVisible()){
+            for (Marker visited : visitedList) {
+                if (visited.isVisible()) {
                     visited.setVisible(false);
-                    btnVisited.setTextColor(Color.rgb(200,0,0));
-                }else{
+                    btnVisited.setTextColor(Color.rgb(200, 0, 0));
+                } else {
                     visited.setVisible(true);
                     btnVisited.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
@@ -151,12 +154,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mv.onResume();
+        onLocationChanged(user);
     }
 
 
@@ -295,6 +300,50 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 ComicDatabase.getInstance(context).getComicDAO().updateComic(c);
             }
         }
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(context, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    user = new Location("user");
+                    user.setLatitude(location.getLatitude());
+                    user.setLongitude(location.getLongitude());
+                }
+                for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+                    Location locationcomic = new Location("locationcomic");
+                    locationcomic.setLatitude(c.getLat());
+                    locationcomic.setLongitude(c.getLon());
+                    float distance = locationcomic.distanceTo(user);
+                    if (distance < 1500)
+                        Toast.makeText(context, c.getPersonage()+" "+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 }

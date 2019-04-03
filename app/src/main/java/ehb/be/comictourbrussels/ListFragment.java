@@ -8,7 +8,6 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
@@ -23,7 +22,6 @@ public class ListFragment extends Fragment {
     private ListFragmentAdapter adapter;
 
     public ListFragment() {
-        // Required empty public constructor
     }
 
     public static ListFragment newInstance(){

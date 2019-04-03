@@ -3,18 +3,16 @@ package ehb.be.comictourbrussels.Utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ehb.be.comictourbrussels.Room.Comic;
 import ehb.be.comictourbrussels.Room.ComicDatabase;
 import ehb.be.comictourbrussels.Room.WC;
 
 public class WCHandler extends Handler {
-    private Context context;
+    private final Context context;
 
     public WCHandler(Context context) {
         this.context = context;
