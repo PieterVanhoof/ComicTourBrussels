@@ -9,5 +9,6 @@
         android:id="@+id/rv_fragment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="2dp"
         tools:listitem="@layout/comiclistcell" />
 </FrameLayout>
