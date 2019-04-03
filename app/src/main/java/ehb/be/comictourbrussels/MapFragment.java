@@ -4,6 +4,7 @@ package ehb.be.comictourbrussels;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -259,14 +260,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == requestLocation) {
-            for (int result : grantResults) {
-                if (result == PackageManager.PERMISSION_GRANTED) {
-                    mGoogleMap.setMyLocationEnabled(true);
+            if (requestCode == requestLocation) {
+                for (int result : grantResults) {
+                    if (result == PackageManager.PERMISSION_GRANTED) {
+                        mGoogleMap.setMyLocationEnabled(true);
+                    }
                 }
             }
-        }
     }
 
     @Override
@@ -319,15 +319,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     user = new Location("user");
                     user.setLatitude(location.getLatitude());
                     user.setLongitude(location.getLongitude());
+
+                    for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+                        Location locationcomic = new Location("locationcomic");
+                        locationcomic.setLatitude(c.getLat());
+                        locationcomic.setLongitude(c.getLon());
+                        float distance = locationcomic.distanceTo(user);
+                        if (distance < 1500)
+                            Toast.makeText(context, c.getPersonage()+" "+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
+                    }
                 }
-                for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
-                    Location locationcomic = new Location("locationcomic");
-                    locationcomic.setLatitude(c.getLat());
-                    locationcomic.setLongitude(c.getLon());
-                    float distance = locationcomic.distanceTo(user);
-                    if (distance < 1500)
-                        Toast.makeText(context, c.getPersonage()+" "+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
-                }
+
             }
         });
     }

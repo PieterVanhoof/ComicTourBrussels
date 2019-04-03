@@ -54,8 +54,7 @@ public class ComicHandler extends Handler {
                     String author = (fields.has("auteur_s")) ? fields.getString("auteur_s") : "Unknown";
                     String jaar = (fields.has("annee")) ? fields.getString("annee") : "Unknown";
                     String id = (currentRecord.has("recordid")) ? currentRecord.getString("recordid") : "Unkown";
-                    Log.d("Test", id);
-                    Log.d("Test1", jaar);
+
 
 
                     JSONObject imageArray = fields.getJSONObject("photo");

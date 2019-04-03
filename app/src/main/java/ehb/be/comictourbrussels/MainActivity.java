@@ -11,7 +11,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    //TODO icon veranderen naar een comic/andere afb ipv camera
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

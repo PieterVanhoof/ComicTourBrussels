@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -73,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
                     nComicHandler.sendMessage(msg);
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "You are not connected to the internet, please restart the application while connected.",Toast.LENGTH_LONG).show();
                 }
 
             }
