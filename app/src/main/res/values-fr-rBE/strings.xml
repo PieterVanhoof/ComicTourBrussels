@@ -10,7 +10,6 @@
     <string name="txt_about_title">Qui sommes-nous</string>
     <string name="txt_lbl_details">Détails</string>
     <string name="txt_about_jorn">Jorn Rymenans</string>
-    <string name="txt_button_visited">Visité</string>
     <string name="txt_tv_visited">Clicquez si vous avez visité</string>
     <string name="nav_title">Parcours BD</string>
     <string name="txt_btn_wc">Toilette</string>
@@ -20,13 +19,9 @@
     <string name="txt_about_carine">Carine Fulakula</string>
     <string name="txt_about_ehb">Ehb, departement DT</string>
     <string name="txt_about_vdab">VDAB</string>
-    <string name="text_details_description">Description</string>
-    <string name="text_details_describe">Description:</string>
     <string name="txt_menu_search">Recherche</string>
     <string name="txt_about_partners">Partenaires:</string>
-    <string name="text_title_details">Détails</string>
     <string name="txt_details_year">Année:</string>
-    <string name="txt_lbl_details_personage">Personnage:</string>
     <string name="txt_btn_map_resto">Restaurants:</string>
     <string name="txt_nav_list">"Liste Bande Dessinée "</string>
     <string name="txt_nav_map">Carte</string>
