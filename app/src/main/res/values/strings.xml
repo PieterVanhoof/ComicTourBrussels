@@ -36,4 +36,5 @@
     <string name="txt_details_year">Year:</string>
     <string name="txt_nearby"> is nearby</string>
     <string name="txt_balloon_description">Text balloon</string>
+    <string name="txt_toast_connection">You are not connected to the internet, please restart the application while connected.</string>
 </resources>

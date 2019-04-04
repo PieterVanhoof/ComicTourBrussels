@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 public class Comic implements Serializable {
-    //TODO primary key naar die van de dataset omzetten
+
     @NonNull @PrimaryKey
     private String id;
     private double lat;

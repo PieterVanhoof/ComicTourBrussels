@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 public class WC implements Serializable {
-    //TODO primary key naar die van de dataset omzetten
+
     @PrimaryKey(autoGenerate = true)
     private long id;
 

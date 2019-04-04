@@ -1,4 +1,5 @@
 package ehb.be.comictourbrussels;
+
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,16 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    //TODO icon veranderen naar een comic/andere afb ipv camera
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         getSupportFragmentManager().beginTransaction().add(R.id.main_container, MapFragment.newInstance()).commit();
 
-
-
     }
 
+    //close drawer with back button
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     }
 
 
+    //Navigation Drawer
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }
