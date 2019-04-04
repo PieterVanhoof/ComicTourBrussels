@@ -58,9 +58,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private Button btnWc, btnVisited, btnToDo, btnResto;
     private Location user;
 
+    //constructor
     public static MapFragment newInstance() {
         return new MapFragment();
     }
+
     //visibility Restaurants
     private final View.OnClickListener restoButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -76,7 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
         }
     };
-
+    //visibility wc's
     private final View.OnClickListener wcButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -92,7 +94,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             }
         }
     };
-
+    //visibility To Do
     private final View.OnClickListener todoButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -170,6 +172,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
 
+        //activating methods
         setupCamera();
         startLocationUpdates();
         addMarkers();
@@ -212,8 +215,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
 
     }
+
     //WC Markers
-    private void wcMarkers (){
+    private void wcMarkers() {
 
         for (WC wc : ComicDatabase.getInstance(context).getComicDAO().selectAllWC()) {
 
@@ -225,20 +229,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
     //Restaurant Markers
-    private void RestoMarkers(){
-        for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()){
+    private void RestoMarkers() {
+        for (Restaurant restaurant : RestaurantDAO.getInstance().getRestaurants()) {
             Marker restoMarker = mGoogleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_resto)).title(restaurant.getNaam()).snippet(restaurant.getBeschrijving()).position(restaurant.getLatLng()));
             restoMarker.setTag("icon");
             restoList.add(restoMarker);
         }
     }
 
+    //Zooming on brussel
     private void setupCamera() {
 
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(BRUSSEL, 14);
         mGoogleMap.animateCamera(update);
 
     }
+
     //Sets location to self
     private void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -260,13 +266,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            if (requestCode == requestLocation) {
-                for (int result : grantResults) {
-                    if (result == PackageManager.PERMISSION_GRANTED) {
-                        mGoogleMap.setMyLocationEnabled(true);
-                    }
+        if (requestCode == requestLocation) {
+            for (int result : grantResults) {
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    mGoogleMap.setMyLocationEnabled(true);
                 }
             }
+        }
     }
 
     @Override
@@ -281,9 +287,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_todo));
                     todoList.add(marker);
                     visitedList.remove(marker);
-                    if(todoList.get(0).isVisible()){
+                    if (todoList.get(0).isVisible()) {
                         marker.setVisible(true);
-                    }else{
+                    } else {
                         marker.setVisible(false);
                     }
                 } else {
@@ -291,9 +297,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_check));
                     visitedList.add(marker);
                     todoList.remove(marker);
-                    if(visitedList.get(0).isVisible()){
+                    if (visitedList.get(0).isVisible()) {
                         marker.setVisible(true);
-                    }else{
+                    } else {
                         marker.setVisible(false);
                     }
                 }
@@ -302,7 +308,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
 
-
+    //When location changes show toast
     @Override
     public void onLocationChanged(Location location) {
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
@@ -315,18 +321,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(context, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
+                if (location != null) {
                     user = new Location("user");
                     user.setLatitude(location.getLatitude());
                     user.setLongitude(location.getLongitude());
 
-                    for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()){
+                    for (Comic c : ComicDatabase.getInstance(context).getComicDAO().selectAllComic()) {
                         Location locationcomic = new Location("locationcomic");
                         locationcomic.setLatitude(c.getLat());
                         locationcomic.setLongitude(c.getLon());
                         float distance = locationcomic.distanceTo(user);
-                        if (distance < 1500)
-                            Toast.makeText(context, c.getPersonage()+" "+getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
+                        if (distance < 1000)
+                            Toast.makeText(context, c.getPersonage() + " " + getString(R.string.txt_nearby), Toast.LENGTH_LONG).show();
                     }
                 }
 
