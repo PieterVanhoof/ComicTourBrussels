@@ -205,7 +205,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
                 Marker m = mGoogleMap.addMarker(new MarkerOptions()
                         .title(comic.getPersonage()).snippet(comic.getAuthor())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_todo)).position(new LatLng(comic.getLat(), comic.getLon())));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_balloon)).position(new LatLng(comic.getLat(), comic.getLon())));
 
                 m.setTag(path);
 
@@ -284,7 +284,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             if (c.getPersonage().contains(marker.getTitle())) {
                 if (c.getVisited()) {
                     c.setVisited(false);
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_todo));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_balloon));
                     todoList.add(marker);
                     visitedList.remove(marker);
                     if (todoList.get(0).isVisible()) {

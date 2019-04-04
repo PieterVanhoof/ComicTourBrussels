@@ -35,4 +35,5 @@
     <string name="txt_splash_comicstour">Parcours BD Bruxelles</string>
     <string name="txt_nearby"> est proche</string>
     <string name="txt_balloon_description">Text balloon</string>
+    <string name="txt_toast_connection">You are not connected to the internet, please restart the application while connected.</string>
 </resources>

@@ -24,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     private ComicHandler nComicHandler;
     private WCHandler nWCHandler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                     nComicHandler.sendMessage(msg);
 
                 } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "You are not connected to the internet, please restart the application while connected.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.txt_toast_connection),Toast.LENGTH_LONG).show();
                 }
 
             }
